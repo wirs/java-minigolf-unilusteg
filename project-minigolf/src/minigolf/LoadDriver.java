@@ -20,7 +20,7 @@ public class LoadDriver {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://admin.4pals.org/minigolf_db?" + "user=golf_user&password=g0lfp4$$");
           //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/test?" + "user=test&password=lol123");
-          //YOLO
+        
             
             // Do something with the Connection
            System.out.println("Dass alles ok");
