@@ -12,7 +12,7 @@ public class MGKernel extends JPanel{
 	public MGTimerTask mgTask;
 	public MGBall ball;
 	
-	public MGKernel(){
+	public MGKernel(){ //hallo
 		
 		super();
 		screen = new Rectangle(0,0,600,400);
