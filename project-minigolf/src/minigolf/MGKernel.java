@@ -12,7 +12,7 @@ public class MGKernel extends JPanel{
 	public MGTimerTask mgTask;
 	public MGBall ball;
 	
-	public MGKernel(){ //hallo
+	public MGKernel(){ 
 		
 		super();
 		screen = new Rectangle(0,0,600,400);
@@ -32,8 +32,8 @@ public class MGKernel extends JPanel{
 	
 	class MGBall{
 		
-		public int x, y, width, height;
-		int xVel, yVel;
+		public int width, height;
+		double xVel, yVel,x, y;
 		
 		public MGBall(){
 			
@@ -42,15 +42,16 @@ public class MGKernel extends JPanel{
 			width=10;
 			height=10;
 			xVel=10;
-			yVel=5;
+			yVel=10;
 		}
 		
 		public void move(){
 			
-			//xVel-=1;
-			//yVel-=1;
-			x+=xVel;
-			y+=yVel;
+			xVel=xVel*0.97;
+			yVel=yVel*0.97;
+			
+			x=x+xVel;
+			y=y+yVel;
 			if (x>(bounds.width-width)){
 				xVel = -xVel;
 				x = bounds.width-width;
@@ -73,7 +74,7 @@ public class MGKernel extends JPanel{
 		g.setColor(fieldColor);
 	    g.fillRect(screen.x, screen.y, screen.width, screen.height);
 	    g.setColor(Color.yellow);
-	    g.fillOval(ball.x, ball.y, ball.width, ball.height);
+	    g.fillOval((int)ball.x, (int)ball.y, ball.width, ball.height);
 	}
 	
 	public static void main(String arg[]){
