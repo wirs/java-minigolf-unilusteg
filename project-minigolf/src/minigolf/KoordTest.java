@@ -1,12 +1,19 @@
 package minigolf;
 import java.util.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+
 import java.lang.Math;
 
-public class KoordTest extends JPanel{
+
+
+public class KoordTest extends JPanel implements MouseListener{
 	
 	public Rectangle screen, bounds;
 	public JFrame frame;
@@ -21,6 +28,7 @@ public class KoordTest extends JPanel{
 		ball = new MGBall();
 		frame = new JFrame("MGKernel");
 		mgTask = new MGTimerTask();	
+		this.addMouseListener(this);
 	}
 	
 	class MGTimerTask extends TimerTask{
@@ -89,8 +97,48 @@ public class KoordTest extends JPanel{
 	    panel.frame.setContentPane(panel); 
 	    panel.frame.setVisible(true);
 
+	    //Hei geet et lass
+	    
+
+
 	    
 	    // Set up a timer to do the vgTask regularly.
 	    vgTimer.schedule(panel.mgTask, 0, 20);
 	}
+   /* public void mousePressed(MouseEvent e) {
+         
+    }	*/
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 int x = e.getX();
+	        int y = e.getY();
+	    System.out.println(x +" "+ y);  
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+		
 }
