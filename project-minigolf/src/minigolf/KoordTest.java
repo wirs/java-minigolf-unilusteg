@@ -14,7 +14,7 @@ import java.lang.Math;
 
 
 public class KoordTest extends JPanel implements MouseListener{
-	
+	double xVel=0, yVel=0;
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
@@ -42,7 +42,7 @@ public class KoordTest extends JPanel implements MouseListener{
 	class MGBall{
 		
 		public int width, height;
-		double xVel, yVel,x, y;
+		double x, y;
 		
 		public MGBall(){
 			
@@ -50,8 +50,7 @@ public class KoordTest extends JPanel implements MouseListener{
 			y=50;
 			width=10;
 			height=10;
-			xVel=10;
-			yVel=10;
+			
 		}
 		
 		public void move(){
@@ -88,7 +87,8 @@ public class KoordTest extends JPanel implements MouseListener{
 	
 	public static void main(String arg[]){
 
-	    java.util.Timer vgTimer = new java.util.Timer();  // Create a Timer object
+	    java.util.Timer 
+	    vgTimer = new java.util.Timer();  // Create a Timer object
 	    KoordTest panel = new KoordTest(); 
 	    
 	    panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,40 +96,36 @@ public class KoordTest extends JPanel implements MouseListener{
 
 	    panel.frame.setContentPane(panel); 
 	    panel.frame.setVisible(true);
-
-	    //Hei geet et lass
-	    
-
-
 	    
 	    // Set up a timer to do the vgTask regularly.
 	    vgTimer.schedule(panel.mgTask, 0, 20);
 	}
-   /* public void mousePressed(MouseEvent e) {
-         
-    }	*/
+ 
 
-	@Override
+	
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		 int x = e.getX();
 	        int y = e.getY();
-	    System.out.println(x +" "+ y);  
+	    System.out.println(x +" "+ y);
+	    xVel=x;
+		yVel=y;
+	    
 	}
 
-	@Override
+	
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
