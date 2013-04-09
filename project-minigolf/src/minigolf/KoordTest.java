@@ -80,8 +80,12 @@ public class KoordTest extends JPanel implements MouseListener{
 		Color fieldColor=new Color(0,128,0);
 		g.setColor(fieldColor);
 		g.fillRect(screen.x, screen.y, screen.width, screen.height);
+		g.setColor(Color.BLACK);
+		g.fillOval(950, 725, 15, 15);
 		g.setColor(Color.yellow);
 		g.fillOval((int)x, (int)y, ball.width, ball.height);
+		
+		
 	}
 
 	public static void main(String arg[]){
@@ -106,8 +110,8 @@ public class KoordTest extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		int xclick = e.getX();
 		int yclick = e.getY();
-		xVel=(int)((xclick-x)/10);
-		yVel=(int)((yclick-y)/10);
+		xVel=((xclick-x)/10);
+		yVel=((yclick-y)/10);
 		System.out.println(xVel +" "+ yVel+ " "+ "" + " " +"" );
 
 	}
