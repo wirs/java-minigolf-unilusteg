@@ -110,8 +110,8 @@ public class KoordTest extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		int xclick = e.getX();
 		int yclick = e.getY();
-		xVel=((xclick-x)/10);
-		yVel=((yclick-y)/10);
+		xVel=((xclick-(x+ball.width/2))/10);
+		yVel=((yclick-(y+ball.height/2))/10);
 		System.out.println(xVel +" "+ yVel+ " "+ "" + " " +"" );
 
 	}
