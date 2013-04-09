@@ -13,8 +13,8 @@ import java.lang.Math;
 
 
 
-public class KoordTest extends JPanel implements MouseListener{
-	double xVel=0, yVel=0,x,y;
+public class KoordTest extends JPanel implements MouseListener, MouseMotionListener{
+	double xVel=0, yVel=0,x,y,mousex,mousey;
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
@@ -29,6 +29,7 @@ public class KoordTest extends JPanel implements MouseListener{
 		frame = new JFrame("MGKernel");
 		mgTask = new MGTimerTask();	
 		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 	}
 
 	class MGTimerTask extends TimerTask{
@@ -80,10 +81,14 @@ public class KoordTest extends JPanel implements MouseListener{
 		Color fieldColor=new Color(0,128,0);
 		g.setColor(fieldColor);
 		g.fillRect(screen.x, screen.y, screen.width, screen.height);
+		g.setColor(Color.RED);
+		g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mousex), (int)(mousey));
 		g.setColor(Color.BLACK);
 		g.fillOval(950, 725, 15, 15);
 		g.setColor(Color.yellow);
 		g.fillOval((int)x, (int)y, ball.width, ball.height);
+		
+		
 		
 		
 	}
@@ -112,7 +117,7 @@ public class KoordTest extends JPanel implements MouseListener{
 		int yclick = e.getY();
 		xVel=((xclick-(x+ball.width/2))/10);
 		yVel=((yclick-(y+ball.height/2))/10);
-		System.out.println(xVel +" "+ yVel+ " "+ "" + " " +"" );
+		
 
 	}
 
@@ -138,6 +143,20 @@ public class KoordTest extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent o) {
+		// TODO Auto-generated method stub
+		mousex=o.getX();
+		mousey=o.getY();
+	
 	}
 
 }
