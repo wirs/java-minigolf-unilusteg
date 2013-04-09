@@ -84,6 +84,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		g.setColor(Color.RED);
 		g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mousex), (int)(mousey));
 		g.setColor(Color.BLACK);
+		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		g.fillOval(950, 725, 15, 15);
 		g.setColor(Color.yellow);
 		g.fillOval((int)x, (int)y, ball.width, ball.height);
