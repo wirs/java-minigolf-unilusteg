@@ -14,7 +14,7 @@ import java.lang.Math;
 
 
 public class KoordTest extends JPanel implements MouseListener, MouseMotionListener{
-	double xVel=0, yVel=0,x,y,mousex,mousey;
+	double xVel=0, yVel=0,x,y,mousex,mousey,hideln=0.008;
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
@@ -83,7 +83,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		g.fillRect(screen.x, screen.y, screen.width, screen.height);
 		g.setColor(Color.RED);
 		
-		if ( xVel<0.008 && yVel<0.008){
+		if (( xVel<=-0 && yVel<=-0 && xVel>-hideln && yVel>-hideln) ||( xVel>=0 && yVel>=0 && xVel<hideln && yVel<hideln) ){
 		g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mousex), (int)(mousey));
 		}
 		g.setColor(Color.BLACK);
@@ -121,6 +121,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		int yclick = e.getY();
 		xVel=((xclick-(x+ball.width/2))/10);
 		yVel=((yclick-(y+ball.height/2))/10);
+		System.out.println(xVel+" "+yVel);
 		
 
 	}
