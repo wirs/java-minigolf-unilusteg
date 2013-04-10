@@ -25,7 +25,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		screen = new Rectangle(0,0,1000,800);
 		bounds = new Rectangle(0,0,1000,800);
 		ball = new MGBall();
-		frame = new JFrame("MGKernel");
+		frame = new JFrame("Super Minigolf");
 		mgTask = new MGTimerTask();	
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
