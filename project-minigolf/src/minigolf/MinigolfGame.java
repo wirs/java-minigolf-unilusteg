@@ -11,7 +11,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	
 	//FIELDS
 	double xVel=0, yVel=0;
-	double x,y,mouseX,mouseY/*,hideLn=0.008*/;
+	double x,y,mouseX,mouseY;
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
@@ -126,7 +126,6 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		g.fillRect(screen.x, screen.y, screen.width, screen.height);
 		g.setColor(Color.RED);
 
-//		/*if(( xVel<=-0 && yVel<=-0 && xVel>-hideLn && yVel>-hideLn) ||( xVel>=0 && yVel>=0 && xVel<hideLn && yVel<hideLn) ) */ (xVel==0){
 		
 		if(isMoving==false){
 		g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mouseX), (int)(mouseY));
