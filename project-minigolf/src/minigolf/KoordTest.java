@@ -58,7 +58,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 
 			//check if the ball is moving
 //			boolean isMoving;
-			if(xVel!=0. && yVel !=0.){isMoving = true;}
+			if(xVel!=0. || yVel !=0.){isMoving = true;}
 			else isMoving = false;
 			
 			//debug boolean
@@ -126,7 +126,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		g.fillRect(screen.x, screen.y, screen.width, screen.height);
 		g.setColor(Color.RED);
 
-		if (( xVel<=-0 && yVel<=-0 && xVel>-hideLn && yVel>-hideLn) ||( xVel>=0 && yVel>=0 && xVel<hideLn && yVel<hideLn) ){
+		if  /* (( xVel<=-0 && yVel<=-0 && xVel>-hideLn && yVel>-hideLn) ||( xVel>=0 && yVel>=0 && xVel<hideLn && yVel<hideLn) ) */ (xVel==0){
 			g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mouseX), (int)(mouseY));
 		}
 		g.setColor(Color.BLACK);
