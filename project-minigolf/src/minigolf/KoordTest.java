@@ -11,7 +11,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 	
 	//FIELDS
 	double xVel=0, yVel=0;
-	double x,y,mouseX,mouseY,hideLn=0.008;
+	double x,y,mouseX,mouseY/*,hideLn=0.008*/;
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
@@ -126,9 +126,12 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		g.fillRect(screen.x, screen.y, screen.width, screen.height);
 		g.setColor(Color.RED);
 
-		if  /* (( xVel<=-0 && yVel<=-0 && xVel>-hideLn && yVel>-hideLn) ||( xVel>=0 && yVel>=0 && xVel<hideLn && yVel<hideLn) ) */ (xVel==0){
-			g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mouseX), (int)(mouseY));
+//		/*if(( xVel<=-0 && yVel<=-0 && xVel>-hideLn && yVel>-hideLn) ||( xVel>=0 && yVel>=0 && xVel<hideLn && yVel<hideLn) ) */ (xVel==0){
+		
+		if(isMoving==false){
+		g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mouseX), (int)(mouseY));
 		}
+		
 		g.setColor(Color.BLACK);
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		g.fillOval(950, 725, 15, 15);
