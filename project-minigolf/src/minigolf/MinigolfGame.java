@@ -7,7 +7,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
 
-public class KoordTest extends JPanel implements MouseListener, MouseMotionListener{
+public class MinigolfGame extends JPanel implements MouseListener, MouseMotionListener{
 	
 	//FIELDS
 	double xVel=0, yVel=0;
@@ -19,7 +19,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 	private static boolean isMoving = false;
 	
 	//CONSTRUCTORS
-	public KoordTest(){ 
+	public MinigolfGame(){ 
 
 		super();
 		screen = new Rectangle(0,0,1000,800);
@@ -200,7 +200,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 
 		java.util.Timer 
 		vgTimer = new java.util.Timer();  // Create a Timer object
-		KoordTest panel = new KoordTest(); 
+		MinigolfGame panel = new MinigolfGame(); 
 
 		panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.frame.setSize(panel.screen.width, panel.screen.height);
