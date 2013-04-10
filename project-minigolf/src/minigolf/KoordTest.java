@@ -192,7 +192,7 @@ public class KoordTest extends JPanel implements MouseListener, MouseMotionListe
 		// TODO Auto-generated method stub
 		mouseX=o.getX();
 		mouseY=o.getY();
-		frame.repaint();
+		if(isMoving==false)frame.repaint();
 	}
 
 	//MAIN METHOD
