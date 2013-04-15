@@ -19,19 +19,23 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public MGHole goal;
 	private static boolean isMoving = false;
 	private static boolean hasBall = false;
-
+	Time1 cl;
 
 	//CONSTRUCTORS
 	public MinigolfGame(){ 
 
 		super();
-		screen = new Rectangle(0,0,820,620);
+		screen = new Rectangle(0,0,800,600);
 		bounds = new Rectangle(0,0,800,600);
 		ball = new MGBall();
 		frame = new JFrame("Super Minigolf");
 		mgTask = new MGTimerTask();	
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		cl = new Time1();
+		this.add(cl);
+		
+		
 	}
 
 	//INNER CLASS TIMERTASK
@@ -213,17 +217,30 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 	//MAIN METHOD
 	public static void main(String arg[]){
-
+	int frameHeight=0;
+	int frameWidth=0;
+	
 		java.util.Timer 
 		vgTimer = new java.util.Timer();  // Create a Timer object
-		MinigolfGame panel = new MinigolfGame(); 
+		MinigolfGame panel = new MinigolfGame();  
 
 		panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel.frame.setSize(panel.screen.width, panel.screen.height);
-
-		panel.frame.setContentPane(panel); 
+		panel.frame.setContentPane(panel);
 		panel.frame.setVisible(true);
-
+		
+		//-5 Because jre7 has a bug with set.resizable(false)
+		int brdT=panel.frame.getInsets().top-5;
+		int brdB=panel.frame.getInsets().bottom-5;
+		int brdL=panel.frame.getInsets().left-5;
+		int brdR=panel.frame.getInsets().right-5;
+		frameHeight= brdT+brdB+panel.screen.height;
+		frameWidth= brdL+brdR+panel.screen.width;
+	
+		
+		
+		panel.frame.setSize(frameWidth,frameHeight );
+		panel.frame.setResizable(false);
+		
 		// Set up a timer to do the vgTask regularly.
 		vgTimer.schedule(panel.mgTask, 0, 20);
 	}
