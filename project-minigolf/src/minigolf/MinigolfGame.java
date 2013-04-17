@@ -233,6 +233,8 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
         JButton button = new JButton("Button 1 (PAGE_START)");
         panel.frame.add(button, BorderLayout.PAGE_START);
+        button = new JButton("Button 1 (PAGE_START)");
+        panel.frame.add(button, BorderLayout.LINE_START);
         
 		panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//panel.frame.setContentPane(panel);
@@ -243,7 +245,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		int brdB=panel.frame.getInsets().bottom-5;
 		int brdL=panel.frame.getInsets().left-5;
 		int brdR=panel.frame.getInsets().right-5;
-		frameHeight= brdT+brdB+panel.screen.height;
+		frameHeight= brdT+brdB+;
 		frameWidth= brdL+brdR+panel.screen.width;
 	
 		
