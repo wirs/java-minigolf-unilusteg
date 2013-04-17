@@ -8,6 +8,8 @@ import java.awt.*;
 import javax.swing.*;
 //import org.jdesktop.swingx.*;
 
+import minigolf.MinigolfGame.MGTimerTask;
+
 /**
  * @author Pol Dubinski
  */
@@ -33,8 +35,8 @@ public class MinigolfGui {
 		label3 = new JLabel();
 		label4 = new JLabel();
 		label5 = new JLabel();
-		MinigolfGame Game = new MinigolfGame();
-		
+		Game = new MinigolfGame();
+			
 
 		//======== MGframe ========
 		{
@@ -183,20 +185,20 @@ public class MinigolfGui {
 	private JLabel label3;
 	private JLabel label4;
 	private JLabel label5;
+	public MinigolfGame Game;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	public static void main(String arg[]){
 		MinigolfGui panel=new MinigolfGui();
-		java.util.Timer 
-		vgTimer = new java.util.Timer();  // Create a Timer object
+	
 		//MinigolfGame panel = new MinigolfGame(); 
 
 		panel.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 		//panel.MGframe.setContentPane(panel); 
 		panel.MGframe.setVisible(true);
-
-		// Set up a timer to do the vgTask regularly.
-		vgTimer.schedule(Game.mgTask, 0, 20);
+		java.util.Timer 
+		vgTimer = new java.util.Timer();  // Create a Timer object
+		vgTimer.schedule(panel.Game.mgTask, 0, 20);
 		
 		
 	

@@ -17,8 +17,8 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public MGTimerTask mgTask;
 	public MGBall ball;
 	public MGHole goal;
-	private static boolean isMoving = false;
-	private static boolean hasBall = false;
+	public static boolean isMoving = false;
+	public static boolean hasBall = false;
 	Clock cl;
 
 	//CONSTRUCTORS
@@ -28,13 +28,16 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		screen = new Rectangle(0,0,800,600);
 		bounds = new Rectangle(0,0,800,600);
 		ball = new MGBall();
-		frame = new JFrame("Super Minigolf");
+		//frame = new JFrame("Super Minigolf");
 		mgTask = new MGTimerTask();	
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		cl = new Clock(50,50);
 		//this.add(cl);
 		this.validate();
+		/*java.util.Timer 
+		vgTimer = new java.util.Timer();  // Create a Timer object
+		vgTimer.schedule(mgTask, 0, 20);*/
 		
 		
 	}
@@ -44,7 +47,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 		public void run() {
 			ball.move();
-			frame.repaint();
+			repaint();
 		}
 	}
 
@@ -216,7 +219,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		mouseX=o.getX();
 		mouseY=o.getY();
 		//System.out.println("x:"+ mouseX + " "+ "y:"+mouseY);
-		if(isMoving==false)frame.repaint();
+		if(isMoving==false)repaint();
 
 	}
 
@@ -253,6 +256,8 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		panel.frame.setResizable(false);
 		
 		// Set up a timer to do the vgTask regularly.
+		java.util.Timer 
+		vgTimer = new java.util.Timer();  // Create a Timer object
 		vgTimer.schedule(panel.mgTask, 0, 20);
 	}*/
 }
