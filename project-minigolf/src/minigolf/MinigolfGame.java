@@ -12,6 +12,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	//FIELDS
 	double xVel=0, yVel=0;
 	double x,y,mouseX,mouseY;
+	int clicks=0;
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
@@ -162,6 +163,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		
 		//display Clock
 		cl.toStringdsp(740, 10, g);
+		
 
 	}
 
@@ -179,9 +181,11 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 				xVel=((xclick-(x+ball.width/2))/10);
 				yVel=((yclick-(y+ball.height/2))/10);
+				clicks+=1;
 
 				//debug mouse click coords
 				//			System.out.println(xVel+" "+yVel);
+				//			System.out.println(clicks);
 			}
 		}
 

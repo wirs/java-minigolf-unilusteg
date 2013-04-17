@@ -28,6 +28,7 @@ public class MinigolfGui {
 		label4 = new JLabel();
 		label5 = new JLabel();
 		Game = new MinigolfGame();
+		cl = new Clock(50,50);
 			
 
 		//======== MGframe ========
@@ -128,14 +129,14 @@ public class MinigolfGui {
 				label3.setBounds(525, 0, 75, 40);
 
 				//---- label4 ----
-				label4.setText("MM:SS:HH");
+				label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes + ":" + cl.dspSeconds);
 				label4.setHorizontalAlignment(SwingConstants.CENTER);
 				label4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				pnlStatus.add(label4);
 				label4.setBounds(100, 0, 80, 40);
 
 				//---- label5 ----
-				label5.setText(" 1337");
+				label5.setText(" "+Game.clicks);
 				label5.setHorizontalAlignment(SwingConstants.CENTER);
 				label5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				pnlStatus.add(label5);
@@ -158,6 +159,7 @@ public class MinigolfGui {
 			MGframeContentPane.add(pnlStatus, BorderLayout.NORTH);
 			MGframe.pack();
 			MGframe.setLocationRelativeTo(MGframe.getOwner());
+			
 		}
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
@@ -177,6 +179,9 @@ public class MinigolfGui {
 	private JLabel label4;
 	private JLabel label5;
 	public MinigolfGame Game;
+	Clock cl;
+	Graphics g;
+	//String time = cl.toStringdsp(1, 1,g);
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	public static void main(String arg[]){
 		MinigolfGui panel=new MinigolfGui();
@@ -189,7 +194,6 @@ public class MinigolfGui {
 		java.util.Timer 
 		vgTimer = new java.util.Timer(); 
 		vgTimer.schedule(panel.Game.mgTask, 0, 20);
-		
 		panel.MGframe.pack();
 		
 		
