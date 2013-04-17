@@ -227,10 +227,15 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	
 		java.util.Timer 
 		vgTimer = new java.util.Timer();  // Create a Timer object
-		MinigolfGame panel = new MinigolfGame();  
+		MinigolfGame panel = new MinigolfGame(); 
+		
+        panel.frame.add(panel, BorderLayout.CENTER);
 
+        JButton button = new JButton("Button 1 (PAGE_START)");
+        panel.frame.add(button, BorderLayout.PAGE_START);
+        
 		panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panel.frame.setContentPane(panel);
+		//panel.frame.setContentPane(panel);
 		panel.frame.setVisible(true);
 		
 		//-5 Because jre7 has a bug with set.resizable(false)
@@ -241,7 +246,6 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		frameHeight= brdT+brdB+panel.screen.height;
 		frameWidth= brdL+brdR+panel.screen.width;
 	
-		
 		
 		panel.frame.setSize(frameWidth,frameHeight );
 		panel.frame.setResizable(false);
