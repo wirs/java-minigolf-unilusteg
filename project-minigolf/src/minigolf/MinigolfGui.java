@@ -207,8 +207,10 @@ public class MinigolfGui {
 
 		@Override
 		public void run() {
-		label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes + ":" + cl.dspSeconds);
-		label5.setText(" " + Game.clicks);
+		if(Game.hasBall==false){
+		label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes + ":" + cl.dspSeconds);}
+		else{
+		label5.setText(" " + Game.clicks);}
 		}
 
 		};
