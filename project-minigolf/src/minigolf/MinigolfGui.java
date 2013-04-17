@@ -200,6 +200,8 @@ public class MinigolfGui {
 		vgTimer = new java.util.Timer();  // Create a Timer object
 		vgTimer.schedule(panel.Game.mgTask, 0, 20);
 		
+		panel.MGframe.pack();
+		
 		
 	
 	}
