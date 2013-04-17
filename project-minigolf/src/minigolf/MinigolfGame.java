@@ -221,15 +221,15 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	//MAIN METHOD
-	public static void main(String arg[]){
+	/*public static void main(String arg[]){
 	int frameHeight=0;
 	int frameWidth=0;
 	
 		java.util.Timer 
 		vgTimer = new java.util.Timer();  // Create a Timer object
 		MinigolfGame panel = new MinigolfGame(); 
-		
-        panel.frame.add(panel, BorderLayout.CENTER);
+		panel.frame.setContentPane(panel);
+       panel.frame.add(panel, BorderLayout.CENTER);
 
         JButton button = new JButton("Button 1 (PAGE_START)");
         panel.frame.add(button, BorderLayout.PAGE_START);
@@ -237,15 +237,15 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
         panel.frame.add(button, BorderLayout.LINE_START);
         
 		panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//panel.frame.setContentPane(panel);
+		//
 		panel.frame.setVisible(true);
-		
+
 		//-5 Because jre7 has a bug with set.resizable(false)
 		int brdT=panel.frame.getInsets().top-5;
 		int brdB=panel.frame.getInsets().bottom-5;
 		int brdL=panel.frame.getInsets().left-5;
 		int brdR=panel.frame.getInsets().right-5;
-		frameHeight= brdT+brdB+;
+		frameHeight= brdT+brdB+panel.screen.height;
 		frameWidth= brdL+brdR+panel.screen.width;
 	
 		
@@ -254,5 +254,5 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		
 		// Set up a timer to do the vgTask regularly.
 		vgTimer.schedule(panel.mgTask, 0, 20);
-	}
+	}*/
 }
