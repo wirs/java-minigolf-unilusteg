@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Wed Apr 17 12:30:19 CEST 2013
- */
-
 package minigolf;
 
 import java.awt.*;
@@ -10,9 +6,6 @@ import javax.swing.*;
 
 import minigolf.MinigolfGame.MGTimerTask;
 
-/**
- * @author Pol Dubinski
- */
 public class MinigolfGui {
 	public MinigolfGui() {
 		initComponents();
@@ -21,7 +14,6 @@ public class MinigolfGui {
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Pol Dubinski
 		MGframe = new JFrame();
 		pnlCtrl = new JPanel();
 		button1 = new JButton();
@@ -53,7 +45,7 @@ public class MinigolfGui {
 				// JFormDesigner evaluation mark
 				pnlCtrl.setBorder(new javax.swing.border.CompoundBorder(
 					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-						"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+						"Minigolf FSTC SS 12-13 INFO II", javax.swing.border.TitledBorder.CENTER,
 						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
 						java.awt.Color.red), pnlCtrl.getBorder())); pnlCtrl.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
@@ -62,28 +54,28 @@ public class MinigolfGui {
 				//---- button1 ----
 				button1.setText("Start");
 				pnlCtrl.add(button1);
-				button1.setBounds(5, 5, 60, 30);
+				button1.setBounds(5, 5, 80, 30);
 
 				//---- button2 ----
 				button2.setText("Stop");
 				pnlCtrl.add(button2);
-				button2.setBounds(75, 5, 60, 30);
+				button2.setBounds(95, 5, 80, 30);
 
 				//---- label1 ----
 				label1.setText(" Name:");
 				pnlCtrl.add(label1);
-				label1.setBounds(145, 5, 40, 29);
+				label1.setBounds(565, 5, 40, 29);
 
 				//---- textField1 ----
 				textField1.setPreferredSize(new Dimension(55, 23));
 				pnlCtrl.add(textField1);
-				textField1.setBounds(185, 5, 90, 30);
+				textField1.setBounds(615, 5, 90, 30);
 
 				//---- button3 ----
 				button3.setText("Submit");
 				button3.setPreferredSize(new Dimension(55, 23));
 				pnlCtrl.add(button3);
-				button3.setBounds(300, 5, 70, 30);
+				button3.setBounds(715, 5, 80, 30);
 
 				{ // compute preferred size
 					Dimension preferredSize = new Dimension();
@@ -171,7 +163,6 @@ public class MinigolfGui {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Pol Dubinski
 	private JFrame MGframe;
 	private JPanel pnlCtrl;
 	private JButton button1;
@@ -190,14 +181,13 @@ public class MinigolfGui {
 	public static void main(String arg[]){
 		MinigolfGui panel=new MinigolfGui();
 	
-		//MinigolfGame panel = new MinigolfGame(); 
+	 
 
 		panel.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	
-		//panel.MGframe.setContentPane(panel); 
+
 		panel.MGframe.setVisible(true);
 		java.util.Timer 
-		vgTimer = new java.util.Timer();  // Create a Timer object
+		vgTimer = new java.util.Timer(); 
 		vgTimer.schedule(panel.Game.mgTask, 0, 20);
 		
 		panel.MGframe.pack();
