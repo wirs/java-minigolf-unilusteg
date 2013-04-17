@@ -3,8 +3,6 @@ package minigolf;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +19,7 @@ public class Clock extends JPanel implements Runnable {
 	int hours, minutes, seconds, millis = 0;
 	int width, height;
 	String dspSeconds, dspMinutes, dspHours, Time ="";
+	String Time2, Time3 ="";
 	public JFrame frame;
 	
 	
@@ -45,7 +44,7 @@ public class Clock extends JPanel implements Runnable {
 		start();
 		String date = "" + new java.util.Date();
 		//System.out.println(date);
-		String strheures = date.substring(11, 13);
+		String strheures = date.substring(11, 13);		//get Time from Computer
 		String strminutes = date.substring(14,16);
 		String strsecondes = date.substring(17,19);
 		/*
@@ -55,6 +54,8 @@ public class Clock extends JPanel implements Runnable {
 		*/
 	}
 	
+	
+	//Define Thread
 	Thread count;
 	
 	//METHODES
@@ -65,6 +66,22 @@ public class Clock extends JPanel implements Runnable {
 		return Time;
 		
 	}
+	
+	
+	public String toString(){
+		Time2 ="";
+		Time2= Time2 + dspHours + ":" + dspMinutes + ":" + dspSeconds;
+		return  Time2;
+	}
+	
+	public String getTime(){
+		Time3 ="";
+		Time3= Time3 + dspHours + ":" + dspMinutes + ":" + dspSeconds;
+		return  Time3;
+	}
+	
+	
+	
 	public void paint(Graphics g){
 		
 		g.setColor(Color.BLACK);
@@ -91,6 +108,8 @@ public class Clock extends JPanel implements Runnable {
 		
 	}
 	
+	
+	//Main run() Mathod of Thread
 	@Override
 	public void run() {
 		Thread thisThread = Thread.currentThread();
@@ -124,6 +143,7 @@ public class Clock extends JPanel implements Runnable {
 	}
 	
 	
+	//MAIN Method of class for Testing
 	public static void main(String[] args){
 		//Frame vum konstruktor vun Clock benotzt
 		Clock cl = new Clock(800,800);
@@ -148,7 +168,7 @@ public class Clock extends JPanel implements Runnable {
 
 /*
  
-
+		//Clock with Timer. DO NOT USE!
 
 import java.util.Date;
 import java.util.Scanner;
