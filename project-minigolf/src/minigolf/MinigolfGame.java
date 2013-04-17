@@ -19,7 +19,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public MGHole goal;
 	private static boolean isMoving = false;
 	private static boolean hasBall = false;
-	Time1 cl;
+	Clock cl;
 
 	//CONSTRUCTORS
 	public MinigolfGame(){ 
@@ -32,8 +32,9 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		mgTask = new MGTimerTask();	
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		cl = new Time1();
-		this.add(cl);
+		cl = new Clock(50,50);
+		//this.add(cl);
+		this.validate();
 		
 		
 	}
@@ -114,6 +115,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 				xVel=0;
 				yVel=0; 
 				hasBall=true;
+				cl.stop();
 			}
 
 
@@ -154,6 +156,9 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		//draw ball
 		g.setColor(Color.yellow);
 		g.fillOval((int)x, (int)y, ball.width, ball.height);
+		
+		//display Clock
+		cl.toStringdsp(740, 10, g);
 
 	}
 
