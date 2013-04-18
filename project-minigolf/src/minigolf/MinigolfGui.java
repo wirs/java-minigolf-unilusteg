@@ -2,11 +2,7 @@ package minigolf;
 
 import java.awt.*;
 import java.util.TimerTask;
-
 import javax.swing.*;
-//import org.jdesktop.swingx.*;
-
-import minigolf.MinigolfGame.MGTimerTask;
 
 public class MinigolfGui {
 	public MinigolfGui() {
@@ -14,8 +10,7 @@ public class MinigolfGui {
 	}
 
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY
-		// //GEN-BEGIN:initComponents
+		//Component initialization
 		MGframe = new JFrame();
 		pnlCtrl = new JPanel();
 		button1 = new JButton();
@@ -141,15 +136,14 @@ public class MinigolfGui {
 				label3.setBounds(525, 0, 75, 40);
 
 				// ---- label4 ----
-				label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes
-						+ ":" + cl.dspSeconds);
+				label4.setText("Press Start");
 				label4.setHorizontalAlignment(SwingConstants.CENTER);
 				label4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				pnlStatus.add(label4);
 				label4.setBounds(100, 0, 80, 40);
 
 				// ---- label5 ----
-				label5.setText(" " + Game.clicks);
+				label5.setText("Press Start");
 				label5.setHorizontalAlignment(SwingConstants.CENTER);
 				label5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				pnlStatus.add(label5);
@@ -207,7 +201,7 @@ public class MinigolfGui {
 		@Override
 		public void run() {
 		if(Game.hasBall==false){
-		label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes + ":" + cl.dspSeconds);
+		label4.setText(cl.toString());
 		label5.setText(" " + Game.clicks);}
 		}
 
