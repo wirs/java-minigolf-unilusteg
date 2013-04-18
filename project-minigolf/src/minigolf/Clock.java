@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 
 public class Clock extends JPanel implements Runnable {
 
-	
-	
 	//Felder
 	
 	int hours, minutes, seconds, millis = 0;
@@ -21,8 +19,6 @@ public class Clock extends JPanel implements Runnable {
 	String dspSeconds, dspMinutes, dspHours, Time ="";
 	String Time2, Time3 ="";
 	public JFrame frame;
-	
-	
 	
 	//Konstruktor
 	
@@ -54,19 +50,16 @@ public class Clock extends JPanel implements Runnable {
 		*/
 	}
 	
-	
 	//Define Thread
 	Thread count;
 	
-	//METHODES
+	//METHODS
 	public String toStringdsp(int pos_X, int pos_Y, Graphics g){
 		Time ="";
 		Time= Time + dspHours + ":" + dspMinutes + ":" + dspSeconds;
 		g.drawString(Time, pos_X, pos_Y);
-		return Time;
-		
+		return Time;	
 	}
-	
 	
 	public String toString(){
 		Time2 ="";
@@ -80,15 +73,12 @@ public class Clock extends JPanel implements Runnable {
 		return  Time3;
 	}
 	
-	
-	
 	public void paint(Graphics g){
 		
 		g.setColor(Color.BLACK);
 		g.clearRect(0, 0, this.width, this.height);
 		g.drawString(toStringdsp(0,10,g), 0, 10);
-		g.drawRect(0, 0, (int) (0.5*this.width), (int) (0.5*this.height));
-		
+		g.drawRect(0, 0, (int) (0.5*this.width), (int) (0.5*this.height));	
 	}
 	
 	public void start(){
@@ -98,16 +88,13 @@ public class Clock extends JPanel implements Runnable {
 			seconds = 0;
 			count = new Thread(this);
 			count.start();
-		}
-		
+		}	
 	}
 	
 	public void stop(){
 		if (count != null)
-		count = null;
-		
+		count = null;	
 	}
-	
 	
 	//Main run() Mathod of Thread
 	@Override
@@ -138,12 +125,10 @@ public class Clock extends JPanel implements Runnable {
 				
 				Thread.sleep(1000);		//1 Sekonn waarden
 			}catch(InterruptedException e){stop(); System.out.println("Error");}
-		}
-		
-	}
+		}		
+	}	
 	
-	
-	//MAIN Method of class for Testing
+/*	//MAIN Method of class for Testing
 	public static void main(String[] args){
 		//Frame vum konstruktor vun Clock benotzt
 		Clock cl = new Clock(800,800);
@@ -158,100 +143,7 @@ public class Clock extends JPanel implements Runnable {
 		//jF.setSize(800, 800);
 		jF.pack();
 		jF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jF.setVisible(true);
-		
-		
+		jF.setVisible(true);		
 	}
-	
-	
+*/		
 }
-
-/*
- 
-		//Clock with Timer. DO NOT USE!
-
-import java.util.Date;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class Clock extends TimerTask {
-
-	
-	private int Test = 0;
-	
-	
-	
-	public Clock(){
-		super();
-		Test = 1;
-		
-	}
-	
-	
-	
-	public String toString(){
-		String Time = "";
-		Time = Integer.toString(Test);
-		
-		return Time;
-		
-	}
-	
-	
-	
-	@SuppressWarnings("deprecation")
-	public void run() {
-		System.out.println(new Date().getTime());
-		System.out.println(Test);
-		Test+=1;
-		if (Test==5)
-			try {
-				Thread.currentThread();
-				//Thread.sleep(3000);
-				Thread.sleep(3000);
-				//Thread.currentThread().suspend();
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-	}
-	
-	
-	/**
-	 * @param args
-	 */
-	/*
-	
-	public void start(){
-		Timer timer = new Timer();
-		Clock cl = new Clock();
-		timer.scheduleAtFixedRate(cl, 0, 1000);
-	}
-	
-	
-	@SuppressWarnings("deprecation")
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		Integer state = 0;
-		Scanner control = new Scanner (System.in);
-		
-		for (int i=0; i>=3; i++){
-			i--;
-			state=control.nextInt();
-			if (state == 1) Thread.currentThread().suspend(); 
-			else if (state == 2)Thread.currentThread().resume();
-		}
-		Timer timer = new Timer();
-		Clock cl = new Clock();
-		timer.scheduleAtFixedRate(cl, 0, 1000);
-		Thread.currentThread().suspend();
-	}
-
-}
-
-
-*/
