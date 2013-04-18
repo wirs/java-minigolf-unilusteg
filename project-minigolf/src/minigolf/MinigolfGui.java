@@ -202,7 +202,10 @@ public class MinigolfGui {
 		public void run() {
 		if(Game.hasBall==false){
 		label4.setText(cl.toString());
-		label5.setText(" " + Game.clicks);}
+		label5.setText(" " + Game.clicks);
+		}
+		else
+			cl.stop();
 		}
 
 		};
