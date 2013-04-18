@@ -202,14 +202,12 @@ public class MinigolfGui {
 	public MinigolfGame Game;
 	Clock cl;
 	Graphics g;
-	
 	private TimerTask tt = new TimerTask() {
 
 		@Override
 		public void run() {
 		if(Game.hasBall==false){
-		label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes + ":" + cl.dspSeconds);}
-		else{
+		label4.setText(cl.Time + cl.dspHours + ":" + cl.dspMinutes + ":" + cl.dspSeconds);
 		label5.setText(" " + Game.clicks);}
 		}
 
