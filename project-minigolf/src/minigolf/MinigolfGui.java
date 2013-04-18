@@ -213,7 +213,6 @@ public class MinigolfGui {
 
 		};
 
-	// String time = cl.toStringdsp(1, 1,g);
 	// JFormDesigner - End of variables declaration //GEN-END:variables
 	public static void main(String arg[]) {
 		MinigolfGui panel = new MinigolfGui();
