@@ -222,7 +222,7 @@ public class MinigolfGui {
 		panel.MGframe.setVisible(true);
 		java.util.Timer vgTimer = new java.util.Timer();
 		vgTimer.schedule(panel.Game.mgTask, 0, 20);
-		vgTimer.schedule(panel.tt, 2000l,1l);
+		vgTimer.schedule(panel.tt, 0,20);
 		panel.MGframe.pack();
 
 	}
