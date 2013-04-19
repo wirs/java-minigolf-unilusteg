@@ -1,149 +1,92 @@
 package minigolf;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.util.TimerTask;
 
 
 
-
-public class Clock extends JPanel implements Runnable {
+public class Clock {
 
 	//Felder
 	
-	int hours, minutes, seconds, millis = 0;
-	int width, height;
-	String dspSeconds, dspMinutes, dspHours, Time ="";
-	String Time2, Time3 ="";
-	public JFrame frame;
+	int minutes, seconds, millis = 0;
+	static String dspmillis;
+	static String dspSeconds;
+	static String dspMinutes;
+	static String Time2 ="";
+	public ClockTimerTask clTask;
+	java.util.Timer vgTimer;
 	
 	//Konstruktor
 	
-	public Clock(int height, int width){
+	public Clock(){
 		
 		super();
-		
-		frame = new JFrame("Clock");
-		
-		this.setPreferredSize(new Dimension(width,height));
-		//this.setSize(width, height);
-		this.width = width;	this.height = height;
-		
-		this.setOpaque(false);
-		this.setVisible(true);
-		//JButton jB = new JButton("Salut");
-		//this.add(jB);
-		count = null;
-		start();
-		String date = "" + new java.util.Date();
-		//System.out.println(date);
-		String strheures = date.substring(11, 13);		//get Time from Computer
-		String strminutes = date.substring(14,16);
-		String strsecondes = date.substring(17,19);
-		/*
-		hours = Integer.valueOf(strheures); 	//syncronization with Computer Clock
-		minutes = Integer.valueOf(strminutes);
-		seconds = Integer.valueOf(strsecondes);
-		*/
+		clTask = new ClockTimerTask();
+		vgTimer = new java.util.Timer();
+		//start();
 	}
-	
-	//Define Thread
-	Thread count;
 	
 	//METHODS
-	public String toStringdsp(int pos_X, int pos_Y, Graphics g){
-		Time ="";
-		Time= Time + dspHours + ":" + dspMinutes + ":" + dspSeconds;
-		g.drawString(Time, pos_X, pos_Y);
-		return Time;	
-	}
-	
-	public String toString(){
+	public static String toStringdsp(){
 		Time2 ="";
-		Time2= Time2 + dspHours + ":" + dspMinutes + ":" + dspSeconds;
+		Time2= Time2 + dspMinutes + ":" + dspSeconds + ":" + dspmillis;
 		return  Time2;
 	}
 	
-	public String getTime(){
-		Time3 ="";
-		Time3= Time3 + dspHours + ":" + dspMinutes + ":" + dspSeconds;
-		return  Time3;
-	}
-	
-	public void paint(Graphics g){
-		
-		g.setColor(Color.BLACK);
-		g.clearRect(0, 0, this.width, this.height);
-		g.drawString(toStringdsp(0,10,g), 0, 10);
-		g.drawRect(0, 0, (int) (0.5*this.width), (int) (0.5*this.height));	
-	}
 	
 	public void start(){
-		if (count == null){
-			hours = 0;
-			minutes = 0;
-			seconds = 0;
-			count = new Thread(this);
-			count.start();
-		}	
-	}
-	
-	public void stop(){
-		if (count != null)
-		count = null;	
-	}
-	
-	//Main run() Mathod of Thread
-	@Override
-	public void run() {
-		Thread thisThread = Thread.currentThread();
-		while (count == thisThread){
-			try{
-				//repaint();
-				seconds+=1;
-				if (seconds == 60){
-					seconds = 0;
-					minutes+=1;
-				}
-				if (minutes == 60){
-					minutes = 0;
-					hours+=1;
-				}
-				
-				if (seconds<10)dspSeconds="0"+seconds;
-				else
-					dspSeconds=Integer.toString(seconds);
-				if (minutes<10)dspMinutes="0"+minutes;
-				else
-					dspMinutes = Integer.toString(minutes);
-				if (hours<10)dspHours="0"+hours;
-				else
-					dspHours=Integer.toString(hours);
-				
-				Thread.sleep(1000);		//1 Sekonn waarden
-			}catch(InterruptedException e){stop(); System.out.println("Error");}
-		}		
-	}	
-	
-/*	//MAIN Method of class for Testing
-	public static void main(String[] args){
-		//Frame vum konstruktor vun Clock benotzt
-		Clock cl = new Clock(800,800);
-		cl.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		cl.frame.setSize(800, 800);
-		cl.frame.setContentPane(cl);
-		cl.frame.setVisible(true);
 		
-		//Neien Frame, ereischt am Main kreeiert
-		JFrame jF = new JFrame("Clock2");
-		jF.getContentPane().add(new Clock(800,800));
-		//jF.setSize(800, 800);
-		jF.pack();
-		jF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jF.setVisible(true);		
+		millis = 0;
+		minutes = 0;
+		seconds = 0;
+		clTask = new ClockTimerTask();
+		vgTimer = new java.util.Timer();
+		vgTimer.scheduleAtFixedRate(clTask, 0, 1);
+			
 	}
-*/		
+	
+	public void stop(){	
+		vgTimer.cancel();
+	}
+	
+	
+	
+	//INNER CLASS TIMERTASK
+			class ClockTimerTask extends TimerTask{
+				
+				
+				//Run Method of TimerTask
+				public void run() {
+					millis+=1;
+					if (millis==1000){
+						millis = 0;
+						seconds+=1;
+					}
+					if (seconds == 60){
+						seconds = 0;
+						minutes+=1;
+					}
+					if (minutes == 60)
+						minutes = 0;
+						
+					if (millis<100){
+						if (millis<10)dspmillis="00"+millis;
+						else
+							dspmillis="0"+millis;
+					}
+					else
+						dspmillis=Integer.toString(millis);
+					
+					if (seconds<10)dspSeconds="0"+seconds;
+					else
+						dspSeconds=Integer.toString(seconds);
+					
+					if (minutes<10)dspMinutes="0"+minutes;
+					else
+						dspMinutes = Integer.toString(minutes);
+		
+					//System.out.println(Clock.toStringdsp());
+				}
+			}
+	
 }

@@ -25,7 +25,8 @@ public class MinigolfGui {
 		label4 = new JLabel();
 		label5 = new JLabel();
 		Game = new MinigolfGame();
-		cl = new Clock(50, 50);
+		cl = new Clock();
+		cl.start();
 
 		// ======== MGframe ========
 		{
@@ -201,7 +202,7 @@ public class MinigolfGui {
 		@Override
 		public void run() {
 		if(Game.hasBall==false){
-		label4.setText(cl.toString());
+		label4.setText(cl.toStringdsp());
 		label5.setText(" " + Game.clicks);
 		}
 		else
