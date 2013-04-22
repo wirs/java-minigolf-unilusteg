@@ -83,7 +83,7 @@ public class MinigolfGui {
 				button1.setBounds(5, 5, 80, 30);
 
 				// ---- button2 ----
-				button2.setText("Stop");
+				button2.setText("Reset");
 				pnlCtrl.add(button2);
 				button2.setBounds(95, 5, 80, 30);
 
