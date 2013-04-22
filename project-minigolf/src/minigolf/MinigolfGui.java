@@ -8,7 +8,24 @@ public class MinigolfGui {
 	public MinigolfGui() {
 		initComponents();
 	}
-
+	
+	private JFrame MGframe;
+	private JPanel pnlCtrl;
+	private JButton button1;
+	private JButton button2;
+	private JLabel label1;
+	private JTextField textField1;
+	private JButton button3;
+	private JPanel pnlMain;
+	private JPanel pnlStatus;
+	private JLabel label2;
+	private JLabel label3;
+	private JLabel label4;
+	private JLabel label5;
+	public MinigolfGame Game;
+	Clock cl;
+	Graphics g;
+	
 	private void initComponents() {
 		//Component initialization
 		MGframe = new JFrame();
@@ -40,7 +57,7 @@ public class MinigolfGui {
 				pnlCtrl.setBackground(new Color(102, 255, 102));
 				pnlCtrl.setPreferredSize(new Dimension(100, 40));
 
-				// JFormDesigner evaluation mark
+				// ---- Watermark ----
 				pnlCtrl.setBorder(new javax.swing.border.CompoundBorder(
 						new javax.swing.border.TitledBorder(
 								new javax.swing.border.EmptyBorder(0, 0, 0, 0),
@@ -149,8 +166,6 @@ public class MinigolfGui {
 				label5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				pnlStatus.add(label5);
 				label5.setBounds(600, 0, 75, 40);
-				
-				//Updating labels
 			
 
 				{ // compute preferred size
@@ -175,28 +190,9 @@ public class MinigolfGui {
 			MGframe.setLocationRelativeTo(MGframe.getOwner());
 
 		}
-		// JFormDesigner - End of component initialization
-		// //GEN-END:initComponents
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY
-	// //GEN-BEGIN:variables
-	private JFrame MGframe;
-	private JPanel pnlCtrl;
-	private JButton button1;
-	private JButton button2;
-	private JLabel label1;
-	private JTextField textField1;
-	private JButton button3;
-	private JPanel pnlMain;
-	private JPanel pnlStatus;
-	private JLabel label2;
-	private JLabel label3;
-	private JLabel label4;
-	private JLabel label5;
-	public MinigolfGame Game;
-	Clock cl;
-	Graphics g;
+	//Update Labels
 	private TimerTask tt = new TimerTask() {
 
 		@Override
@@ -211,7 +207,6 @@ public class MinigolfGui {
 
 		};
 
-	// JFormDesigner - End of variables declaration //GEN-END:variables
 	public static void main(String arg[]) {
 		MinigolfGui panel = new MinigolfGui();
 
