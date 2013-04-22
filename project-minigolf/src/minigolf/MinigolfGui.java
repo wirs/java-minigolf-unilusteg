@@ -51,6 +51,7 @@ public class MinigolfGui {
 			MGframe.setTitle("SUPER MINIGOLF!!!!1111!!!!!11!1                                1337");
 			Container MGframeContentPane = MGframe.getContentPane();
 			MGframeContentPane.setLayout(new BorderLayout());
+			MGframe.setResizable(false);
 
 			// ======== pnlCtrl ========
 			{
@@ -217,6 +218,7 @@ public class MinigolfGui {
 		vgTimer.schedule(panel.Game.mgTask, 0, 10);
 		vgTimer.schedule(panel.tt, 0,1);
 		panel.MGframe.pack();
+		
 
 	}
 }
