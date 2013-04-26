@@ -1,6 +1,8 @@
 package minigolf;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.TimerTask;
 import javax.swing.*;
 
@@ -81,11 +83,25 @@ public class MinigolfGui {
 				button1.setText("Start");
 				pnlCtrl.add(button1);
 				button1.setBounds(5, 5, 80, 30);
+				button1.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						button1ActionPerformed(e);
+						button1ActionPerformed(e);
+					}
+				});
 
 				// ---- button2 ----
 				button2.setText("Reset");
 				pnlCtrl.add(button2);
 				button2.setBounds(95, 5, 80, 30);
+				button2.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						button2ActionPerformed(e);
+						button2ActionPerformed(e);
+					}
+				});
 
 				// ---- label1 ----
 				label1.setText(" Name:");
@@ -102,6 +118,13 @@ public class MinigolfGui {
 				button3.setPreferredSize(new Dimension(55, 23));
 				pnlCtrl.add(button3);
 				button3.setBounds(715, 5, 80, 30);
+				button3.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						button3ActionPerformed(e);
+						button3ActionPerformed(e);
+					}
+				});
 
 				{ // compute preferred size
 					Dimension preferredSize = new Dimension();
@@ -207,7 +230,22 @@ public class MinigolfGui {
 		}
 
 		};
-
+		
+		//Start Button
+		private void button1ActionPerformed(ActionEvent e) {
+			// TODO add your code here
+		}
+		
+		//Reset Button
+		private void button2ActionPerformed(ActionEvent e) {
+			// TODO add your code here
+		}
+		
+		//Submit Button
+		private void button3ActionPerformed(ActionEvent e) {
+			// TODO add your code here
+		}
+		
 	public static void main(String arg[]) {
 		MinigolfGui panel = new MinigolfGui();
 
