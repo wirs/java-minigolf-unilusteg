@@ -25,6 +25,7 @@ public class MinigolfGui {
 	private JLabel label4;
 	private JLabel label5;
 	public MinigolfGame Game;
+	public static MGsql sql;
 	int dafuq=0;
 	Clock cl;
 	Graphics g;
@@ -46,6 +47,8 @@ public class MinigolfGui {
 		label5 = new JLabel();
 		Game = new MinigolfGame();
 		cl = new Clock();
+		sql=new MGsql();
+		
 		
 
 		// ======== MGframe ========
@@ -93,7 +96,7 @@ public class MinigolfGui {
 				});
 
 				// ---- button2 ----
-				button2.setText("Reset");
+				button2.setText("Pause");
 				pnlCtrl.add(button2);
 				button2.setBounds(95, 5, 80, 30);
 				button2.addActionListener(new ActionListener() {
@@ -259,7 +262,7 @@ public class MinigolfGui {
 		
 	public static void main(String arg[]) {
 		MinigolfGui panel = new MinigolfGui();
-
+		sql.connect();
 		panel.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panel.MGframe.setVisible(true);
