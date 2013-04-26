@@ -25,6 +25,7 @@ public class MinigolfGui {
 	private JLabel label4;
 	private JLabel label5;
 	public MinigolfGame Game;
+	int dafuq=0;
 	Clock cl;
 	Graphics g;
 	
@@ -45,7 +46,7 @@ public class MinigolfGui {
 		label5 = new JLabel();
 		Game = new MinigolfGame();
 		cl = new Clock();
-		cl.start();
+		
 
 		// ======== MGframe ========
 		{
@@ -233,12 +234,22 @@ public class MinigolfGui {
 		
 		//Start Button
 		private void button1ActionPerformed(ActionEvent e) {
-			// TODO add your code here
+			cl.vgTimer.cancel();
+			cl.start();
 		}
 		
 		//Reset Button
 		private void button2ActionPerformed(ActionEvent e) {
-			// TODO add your code here
+			
+			
+			if (cl.paused==1){
+			cl.resume();
+			System.out.println("before you break my heart");
+			}
+			else if (cl.paused==0){
+				cl.stop();
+				System.out.println("Stop in the name of love");
+			}
 		}
 		
 		//Submit Button

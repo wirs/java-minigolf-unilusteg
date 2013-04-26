@@ -8,7 +8,7 @@ public class Clock {
 
 	//Felder
 	
-	int minutes, seconds, millis = 0;
+	int minutes, seconds, millis,paused = 0;
 	static String dspmillis;
 	static String dspSeconds;
 	static String dspMinutes;
@@ -34,7 +34,7 @@ public class Clock {
 	}
 	
 	
-	public void start(){
+public void start(){
 		
 		millis = 0;
 		minutes = 0;
@@ -44,8 +44,17 @@ public class Clock {
 		vgTimer.scheduleAtFixedRate(clTask, 0, 1);
 			
 	}
+
+public void resume(){
+	paused=0;
+	clTask = new ClockTimerTask();
+	vgTimer = new java.util.Timer();
+	vgTimer.scheduleAtFixedRate(clTask, 0, 1);
+		
+}
 	
 	public void stop(){	
+		paused=1;
 		vgTimer.cancel();
 	}
 	
