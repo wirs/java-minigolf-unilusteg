@@ -3,8 +3,11 @@ package minigolf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.TimerTask;
 import javax.swing.*;
+
 
 public class MinigolfGui {
 	public MinigolfGui() {
@@ -91,7 +94,7 @@ public class MinigolfGui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						button1ActionPerformed(e);
-						button1ActionPerformed(e);
+						//button1ActionPerformed(e);
 					}
 				});
 
@@ -103,7 +106,7 @@ public class MinigolfGui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						button2ActionPerformed(e);
-						button2ActionPerformed(e);
+						//button2ActionPerformed(e);
 					}
 				});
 
@@ -122,14 +125,14 @@ public class MinigolfGui {
 				button3.setPreferredSize(new Dimension(55, 23));
 				pnlCtrl.add(button3);
 				button3.setBounds(715, 5, 80, 30);
-				button3.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						button3ActionPerformed(e);
-						button3ActionPerformed(e);
-					}
-				});
-
+				button3.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					button3ActionPerformed(e);
+					
+				}
+			});
+				
 				{ // compute preferred size
 					Dimension preferredSize = new Dimension();
 					for (int i = 0; i < pnlCtrl.getComponentCount(); i++) {
@@ -256,8 +259,14 @@ public class MinigolfGui {
 		}
 		
 		//Submit Button
-		private void button3ActionPerformed(ActionEvent e) {
-			// TODO add your code here
+		private void button3ActionPerformed(ActionEvent e){
+		try {
+			sql.submit();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("Submited Score");
 		}
 		
 	public static void main(String arg[]) {

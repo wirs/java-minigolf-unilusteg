@@ -5,9 +5,14 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MGsql {
-    public void connect() {
+	
+    public Connection conn;
+    Statement stmt = null;
+
+	public void connect() {
         try {
             // The newInstance() call is a work around for some
             // broken Java implementations
@@ -19,7 +24,9 @@ public class MGsql {
            // Connection conn = DriverManager.getConnection("jdbc:mysql://admin.4pals.org/minigolf_db?" + "user=golf_user&password=g0lfp4$$");
           Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/test?" + "user=test&password=lol123");
         
-            
+          stmt = conn.createStatement();
+          
+          
             // Do something with the Connection
            System.out.println("Connected to DB");
         } catch (SQLException ex) {
@@ -30,7 +37,24 @@ public class MGsql {
         }
     
     }
-}
+	public void submit() throws SQLException{
+	
+		
+        
+		try {
+			
+			stmt.addBatch("insert into tblMG " +
+					"values('nick', 4, 'time', 3)");
+			int[] updateCounts = stmt.executeBatch();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+		
+		
+	}
+
 
 
 
