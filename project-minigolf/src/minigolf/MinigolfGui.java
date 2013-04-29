@@ -19,7 +19,7 @@ public class MinigolfGui {
 	private JButton button1;
 	private JButton button2;
 	private JLabel label1;
-	private JTextField textField1;
+	public JTextField textField1;
 	private JButton button3;
 	private JPanel pnlMain;
 	private JPanel pnlStatus;
@@ -29,7 +29,6 @@ public class MinigolfGui {
 	private JLabel label5;
 	public MinigolfGame Game;
 	public static MGsql sql;
-	int dafuq=0;
 	Clock cl;
 	Graphics g;
 	
@@ -250,17 +249,20 @@ public class MinigolfGui {
 			
 			if (cl.paused==1){
 			cl.resume();
-			System.out.println("before you break my heart");
+			System.out.println("Resumed");
 			}
 			else if (cl.paused==0){
 				cl.stop();
-				System.out.println("Stop in the name of love");
+				System.out.println("Paused");
 			}
 		}
 		
 		//Submit Button
-		private void button3ActionPerformed(ActionEvent e){
+		public void button3ActionPerformed(ActionEvent e){
 		try {
+			sql.nick= textField1.getText();
+			sql.hits=Game.clicks;
+			sql.time=cl.toStringdsp();
 			sql.submit();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

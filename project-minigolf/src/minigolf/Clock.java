@@ -9,10 +9,10 @@ public class Clock {
 	//Felder
 	
 	int minutes, seconds, millis,paused = 0;
-	static String dspmillis;
-	static String dspSeconds;
-	static String dspMinutes;
-	static String Time2 ="";
+	String dspmillis;
+	String dspSeconds;
+	String dspMinutes;
+	String Time2 ="";
 	public ClockTimerTask clTask;
 	java.util.Timer vgTimer;
 	
@@ -27,7 +27,7 @@ public class Clock {
 	}
 	
 	//METHODS
-	public static String toStringdsp(){
+	public String toStringdsp(){
 		Time2 ="";
 		Time2= Time2 + dspMinutes + ":" + dspSeconds + ":" + dspmillis;
 		return  Time2;

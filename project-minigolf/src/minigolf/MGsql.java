@@ -11,6 +11,11 @@ public class MGsql {
 	
     public Connection conn;
     Statement stmt = null;
+    String nick;
+    String time;
+    int hits;
+    int score;
+    
 
 	public void connect() {
         try {
@@ -42,9 +47,8 @@ public class MGsql {
 		
         
 		try {
-			
-			stmt.addBatch("insert into tblMG " +
-					"values('nick', 4, 'time', 3)");
+			score = 101-hits;
+			stmt.addBatch("insert into tblMG " + "values('"+nick+"',"+hits+", '"+time+"', "+score+")");
 			int[] updateCounts = stmt.executeBatch();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
