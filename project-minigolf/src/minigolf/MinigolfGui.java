@@ -13,7 +13,7 @@ public class MinigolfGui {
 	public MinigolfGui() {
 		initComponents();
 	}
-	
+
 	private JFrame MGframe;
 	private JPanel pnlCtrl;
 	private JButton button1;
@@ -29,9 +29,11 @@ public class MinigolfGui {
 	private JLabel label5;
 	public MinigolfGame Game;
 	public static MGsql sql;
+	static java.util.Timer vgTimer;
 	Clock cl;
 	Graphics g;
-	
+
+
 	private void initComponents() {
 		//Component initialization
 		MGframe = new JFrame();
@@ -50,13 +52,13 @@ public class MinigolfGui {
 		Game = new MinigolfGame();
 		cl = new Clock();
 		sql=new MGsql();
-		
-		
+		vgTimer = new java.util.Timer();
+
 
 		// ======== MGframe ========
 		{
 			MGframe.setBackground(new Color(255, 102, 255));
-			MGframe.setTitle("SUPER MINIGOLF!!!!1111!!!!!11!1                                1337");
+			MGframe.setTitle("Megagolf v1.33.7");
 			Container MGframeContentPane = MGframe.getContentPane();
 			MGframeContentPane.setLayout(new BorderLayout());
 			MGframe.setResizable(false);
@@ -75,7 +77,7 @@ public class MinigolfGui {
 								javax.swing.border.TitledBorder.BOTTOM,
 								new java.awt.Font("Dialog", java.awt.Font.BOLD,
 										12), java.awt.Color.red), pnlCtrl
-								.getBorder()));
+										.getBorder()));
 				pnlCtrl.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
 					public void propertyChange(java.beans.PropertyChangeEvent e) {
 						if ("border".equals(e.getPropertyName()))
@@ -125,13 +127,13 @@ public class MinigolfGui {
 				pnlCtrl.add(button3);
 				button3.setBounds(715, 5, 80, 30);
 				button3.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					button3ActionPerformed(e);
-					
-				}
-			});
-				
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						button3ActionPerformed(e);
+
+					}
+				});
+
 				{ // compute preferred size
 					Dimension preferredSize = new Dimension();
 					for (int i = 0; i < pnlCtrl.getComponentCount(); i++) {
@@ -196,7 +198,7 @@ public class MinigolfGui {
 				label5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				pnlStatus.add(label5);
 				label5.setBounds(600, 0, 75, 40);
-			
+
 
 				{ // compute preferred size
 					Dimension preferredSize = new Dimension();
@@ -227,61 +229,69 @@ public class MinigolfGui {
 
 		@Override
 		public void run() {
-		if(Game.hasBall==false){
-		label4.setText(cl.toStringdsp());
-		label5.setText(" " + Game.clicks);
-		}
-		else
-			cl.stop();
+			if(Game.hasBall==false){
+				label4.setText(cl.toStringdsp());
+				label5.setText(" " + Game.clicks);
+			}
+			else
+				cl.stop();
 		}
 
-		};
-		
-		//Start Button
-		private void button1ActionPerformed(ActionEvent e) {
-			cl.vgTimer.cancel();
-			cl.start();
-		}
-		
-		//Reset Button
-		private void button2ActionPerformed(ActionEvent e) {
-			
-			
-			if (cl.paused==1){
+	};
+
+	//Start Button
+	private void button1ActionPerformed(ActionEvent e) {
+		cl.vgTimer.cancel();
+		cl.start();
+		Game.started=true;
+		vgTimer.schedule(Game.mgTask, 0, 10);
+	}
+
+	//Reset Button
+	private void button2ActionPerformed(ActionEvent e) {
+
+
+		if (cl.paused==1){
 			cl.resume();
 			System.out.println("Resumed");
+		}
+		else if (cl.paused==0){
+			cl.stop();
+			System.out.println("Paused");
+		}
+	}
+
+	//Submit Button
+	public void button3ActionPerformed(ActionEvent e){
+		try {
+			if(Game.started==true){
+				sql.nick= textField1.getText();
+				sql.hits=Game.clicks;
+				sql.time=cl.toStringdsp();
+				sql.submit();
+				System.out.println("Submited Score");
 			}
-			else if (cl.paused==0){
-				cl.stop();
-				System.out.println("Paused");
+			else{
+				System.out.println("Press Start!!!!"); 
 			}
 		}
-		
-		//Submit Button
-		public void button3ActionPerformed(ActionEvent e){
-		try {
-			sql.nick= textField1.getText();
-			sql.hits=Game.clicks;
-			sql.time=cl.toStringdsp();
-			sql.submit();
-		} catch (SQLException e1) {
+		catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("Submited Score");
-		}
 		
+	}
+
 	public static void main(String arg[]) {
 		MinigolfGui panel = new MinigolfGui();
 		sql.connect();
 		panel.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panel.MGframe.setVisible(true);
-		java.util.Timer vgTimer = new java.util.Timer();
-		vgTimer.schedule(panel.Game.mgTask, 0, 10);
+
 		vgTimer.schedule(panel.tt, 0,1);
 		panel.MGframe.pack();
-		
+
 
 	}
 }

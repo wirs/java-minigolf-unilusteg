@@ -76,7 +76,7 @@ public class MGsql {
 
 
 		try {
-			score = 101-hits;
+			score = 101-(hits*5);
 			stmt.addBatch("insert into tblMG " + "values('"+nick+"',"+hits+", '"+time+"', "+score+")");
 			int[] updateCounts = stmt.executeBatch();
 		} catch (SQLException e1) {

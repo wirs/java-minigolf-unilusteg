@@ -20,6 +20,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public MGHole goal;
 	public static boolean isMoving = false;
 	public static boolean hasBall = false;
+	public static boolean started = false;
 
 	//CONSTRUCTORS
 	public MinigolfGame(){ 
@@ -32,8 +33,8 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.validate();
-		
-		
+
+
 	}
 
 	//INNER CLASS TIMERTASK
@@ -112,7 +113,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 				xVel=0;
 				yVel=0; 
 				hasBall=true;
-			
+
 			}
 
 
@@ -153,32 +154,34 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		//draw ball
 		g.setColor(Color.yellow);
 		g.fillOval((int)x, (int)y, ball.width, ball.height);
-		
+
 
 	}
 
 	//MOUSE EVENTS
 	public void mouseClicked(MouseEvent e) {
 
-		if(hasBall){e.consume();}
+		if(!started){e.consume();}
 		else{
-			if(isMoving){e.consume();}
+			if(hasBall){e.consume();}
+			else{
+				if(isMoving){e.consume();}
 
-			else
-			{
-				int xclick = e.getX();
-				int yclick = e.getY();
+				else
+				{
+					int xclick = e.getX();
+					int yclick = e.getY();
 
-				xVel=((xclick-(x+ball.width/2))/10);
-				yVel=((yclick-(y+ball.height/2))/10);
-				clicks+=1;
+					xVel=((xclick-(x+ball.width/2))/10);
+					yVel=((yclick-(y+ball.height/2))/10);
+					clicks+=1;
 
-				//debug mouse click coords
-				//			System.out.println(xVel+" "+yVel);
-				//			System.out.println(clicks);
+					//debug mouse click coords
+					//			System.out.println(xVel+" "+yVel);
+					//			System.out.println(clicks);
+				}
 			}
 		}
-
 	}
 
 	public void mouseEntered(MouseEvent arg0) {
