@@ -229,14 +229,15 @@ public class MinigolfGui {
 
 		@Override
 		public void run() {
-			if(Game.hasBall==false){
-				label4.setText(cl.toStringdsp());
-				label5.setText(" " + Game.clicks);
+			if(Game.started==true){
+				if(Game.hasBall==false){
+					label4.setText(cl.toStringdsp());
+					label5.setText(" " + Game.clicks);
+				}
+				else
+					cl.stop();
 			}
-			else
-				cl.stop();
 		}
-
 	};
 
 	//Start Button
@@ -279,7 +280,7 @@ public class MinigolfGui {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 	}
 
 	public static void main(String arg[]) {
