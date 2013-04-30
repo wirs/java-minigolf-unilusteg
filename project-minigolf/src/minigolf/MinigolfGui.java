@@ -244,7 +244,7 @@ public class MinigolfGui {
 		cl.start();
 		Game.started=true;
 		Game.drawHelperLine=true;
-		vgTimer.schedule(Game.mgTask, 0, 10);
+		vgTimer.schedule(Game.mgTask, 0, 20);
 	}
 
 	//Reset Button
@@ -286,9 +286,12 @@ public class MinigolfGui {
 		MinigolfGui panel = new MinigolfGui();
 		sql.connect();
 		panel.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		panel.MGframe.setVisible(true);
-
+		panel.MGframe.pack();
 		vgTimer.schedule(panel.tt, 0,1);
+/*		panel.Game.wall.x=0;
+		panel.Game.wall.y=500;
+		panel.Game.wall.width=800;
+		panel.Game.wall.height=100;*/
 	}
 }
