@@ -10,50 +10,49 @@ import javax.swing.*;
 
 
 public class MinigolfGui {
+	
 	public MinigolfGui() {
 		initComponents();
 	}
 
 	private JFrame MGframe;
 	private JPanel pnlCtrl;
-	private JButton button1;
-	private JButton button2;
-	private JLabel label1;
-	public JTextField textField1;
-	private JButton button3;
 	private JPanel pnlMain;
 	private JPanel pnlStatus;
+	private JButton button1;
+	private JButton button2;
+	private JButton button3;
+	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
 	private JLabel label4;
 	private JLabel label5;
+	public JTextField textField1;
 	public MinigolfGame Game;
 	public static MGsql sql;
 	static java.util.Timer vgTimer;
 	Clock cl;
 	Graphics g;
 
-
 	private void initComponents() {
 		//Component initialization
 		MGframe = new JFrame();
 		pnlCtrl = new JPanel();
-		button1 = new JButton();
-		button2 = new JButton();
-		label1 = new JLabel();
-		textField1 = new JTextField();
-		button3 = new JButton();
 		pnlMain = new JPanel();
 		pnlStatus = new JPanel();
+		button1 = new JButton();
+		button2 = new JButton();
+		button3 = new JButton();
+		label1 = new JLabel();		
 		label2 = new JLabel();
 		label3 = new JLabel();
 		label4 = new JLabel();
 		label5 = new JLabel();
+		textField1 = new JTextField();
 		Game = new MinigolfGame();
 		cl = new Clock();
 		sql=new MGsql();
 		vgTimer = new java.util.Timer();
-
 
 		// ======== MGframe ========
 		{
@@ -292,7 +291,5 @@ public class MinigolfGui {
 
 		vgTimer.schedule(panel.tt, 0,1);
 		panel.MGframe.pack();
-
-
 	}
 }

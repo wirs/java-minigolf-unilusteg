@@ -12,8 +12,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	//FIELDS
 	int clicks=0;
 	
-	double xVel=0, yVel=0;
-	double x,y,mouseX,mouseY;
+	double mouseX,mouseY;
 	
 	boolean isMoving = false;
 	boolean hasBall = false;
@@ -26,13 +25,16 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public MGBall ball;
 	public MGHole goal;
 	
+//	public MGWall wall;
+	
 	//CONSTRUCTORS
 	public MinigolfGame(){ 
 
 		super();
 		screen = new Rectangle(0,0,800,600);
 		bounds = new Rectangle(0,0,800,600);
-		ball = new MGBall();
+		ball = new MGBall(0,0,10);
+//		wall = new MGWall(0,580,800,20);
 		mgTask = new MGTimerTask();	
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -66,33 +68,32 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	//INNER CLASS WALL
-	class MGWall extends Rectangle{
+
+	public class MGWall extends Rectangle{
+		int x,y,width,height;
 		
-		//FIELDS
-		int x, y, width, height;
-		
-		//CONSTRUCTORS
-		public MGWall(int x,int y, int width, int height, Graphics g){
+		public MGWall(int x, int y, int width, int height){
 			this.x = x;
 			this.y = y;
 			this.width = width;
 			this.height= height;
-			g.setColor(Color.lightGray);
-			g.fillRect(x, y, width, height);
 		}
 	}
 
 	//INNER CLASS BALL
-	class MGBall{
+	class MGBall extends Rectangle{
 
 		//FIELDS
-		public int width, height;
+		int size;
+		double x, y, xVel, yVel;
 
 		//CONSTRUCTORS
-		public MGBall(){
-
-			width=10;
-			height=10;
+		public MGBall(double x, double y, int size){
+			this.x=x;
+			this.y=y;
+			this.size=size;
+			this.xVel=0;
+			this.yVel=0;
 		}
 
 		//METHODS
@@ -109,22 +110,21 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 			}
 
 			//friction factor
-			xVel=xVel*0.97;
-			yVel=yVel*0.97;
+			xVel*=0.97;
+			yVel*=0.97;
 
 			//determine new coordinates
-			x=x+xVel;
-			y=y+yVel;
+			x+=xVel;
+			y+=yVel;
 
-			
-			if (x>(bounds.width-width)){
+			if (x>(bounds.width-ball.size)){
 				xVel = -xVel;
-				x = bounds.width-width;
+				x = bounds.width-ball.size;
 			}
 
-			if(y>(bounds.height-height)){
+			if(y>(bounds.height-ball.size)){
 				yVel = -yVel;
-				y = bounds.height-height;
+				y = bounds.height-ball.size;
 			}
 
 			if (x <= 0) { xVel = -xVel; x = 0; }
@@ -143,6 +143,22 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 			if(Math.abs(xVel)<0.05){xVel=0.;}
 
 			if(Math.abs(yVel)<0.05){yVel=0.;}
+			
+/*			// Detect Brick and bounce if necessary.
+			if (this.intersects(wall)) {
+				// Get the intersection rectangle to find out which way to bounce.
+				System.out.println(1);
+				Rectangle iRect = this.intersection(wall);
+				// If we hit on the left side, go left (negative x velocity).
+				if ((x+(width/2))<(iRect.x+(iRect.width/2))){xVel=(0-Math.abs(xVel));}
+				// If we hit on the right side, go right (positive x velocity).
+				if ((x+(width/2))>(iRect.x+(iRect.width/2))){xVel=Math.abs(xVel);}
+				// If we hit on the top, go up.
+				if ((y+(height/2))<(iRect.y+(iRect.height/2))){yVel=(0-Math.abs(yVel));}
+				// If we hit on the bottom, go down.
+				if ((y+(height/2))>(iRect.y+(iRect.height/2))){yVel=Math.abs(yVel);}
+			}
+*/
 		}
 	}
 
@@ -159,7 +175,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 		//draw line helper
 		g.setColor(Color.RED);
-		if (drawHelperLine){g.drawLine((int)(x+ball.width/2), (int)(y+ball.height/2), (int)(mouseX), (int)(mouseY));}
+		if (drawHelperLine){g.drawLine((int)(ball.x+ball.size/2), (int)(ball.y+ball.size/2), (int)(mouseX), (int)(mouseY));}
 		
 		//crosshair cursor
 		g.setColor(Color.BLACK);
@@ -167,13 +183,12 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 		//draw ball
 		g.setColor(Color.yellow);
-		g.fillOval((int)x, (int)y, ball.width, ball.height);
+		g.fillOval((int)ball.x, (int)ball.y, ball.size, ball.size);
 		
 /*		//draw walls
-		MGWall wall1 = new MGWall(0,0,800,20,g);
-		MGWall wall2 = new MGWall(0,580,800,20,g);
-		MGWall wall3 = new MGWall(0,20,20,560,g);
-		MGWall wall4 = new MGWall(780,20,20,560,g);*/
+		 g.setColor(Color.LIGHT_GRAY);
+		 g.fillRect(wall.x, wall.y, wall.width, wall.height);
+*/		
 	}
 
 	//MOUSE EVENTS
@@ -190,8 +205,8 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 					int xclick = e.getX();
 					int yclick = e.getY();
 
-					xVel=((xclick-(x+ball.width/2))/10);
-					yVel=((yclick-(y+ball.height/2))/10);
+					ball.xVel=((xclick-(ball.x+ball.size/2))/10);
+					ball.yVel=((yclick-(ball.y+ball.size/2))/10);
 					clicks+=1;
 
 					//debug mouse click coords
