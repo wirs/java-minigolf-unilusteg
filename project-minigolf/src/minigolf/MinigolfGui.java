@@ -290,6 +290,5 @@ public class MinigolfGui {
 		panel.MGframe.setVisible(true);
 
 		vgTimer.schedule(panel.tt, 0,1);
-		panel.MGframe.pack();
 	}
 }

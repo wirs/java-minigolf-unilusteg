@@ -11,22 +11,21 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 	//FIELDS
 	int clicks=0;
-	
+
 	double mouseX,mouseY;
-	
+
 	boolean isMoving = false;
 	boolean hasBall = false;
 	boolean started = false;
 	boolean drawHelperLine = false;
-	
+
 	public Rectangle screen, bounds;
 	public JFrame frame;
 	public MGTimerTask mgTask;
 	public MGBall ball;
 	public MGHole goal;
-	
 //	public MGWall wall;
-	
+
 	//CONSTRUCTORS
 	public MinigolfGame(){ 
 
@@ -52,10 +51,10 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 	//INNER CLASS HOLE
 	class MGHole extends Rectangle {
-		
+
 		//FIELDS
 		int x,y,width,height;
-		
+
 		//CONSTRUCTORS
 		public MGHole(int x, int y, int width, int height,Graphics g){
 			this.x=x;
@@ -66,20 +65,29 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 			g.fillOval(x, y, width, height);
 		}
 	}
-	
-	//INNER CLASS WALL
+
+/*	//INNER CLASS WALL
 
 	public class MGWall extends Rectangle{
-		int x,y,width,height;
-		
-		public MGWall(int x, int y, int width, int height){
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height= height;
-		}
-	}
+		Color brickColor;
 
+		public MGWall(int newX, int newY, int newWidth, int newHeight){
+			super(newX, newY, newWidth, newHeight);
+			brickColor = new Color(0, 128, 255);
+		}
+
+		public MGWall(int newX, int newY){
+			this(newX, newY, 10, 10);
+		}
+
+		public MGWall(){
+			this(0,0,10,10);
+		}
+
+		public void setColor(Color newColor) {brickColor=newColor;}
+		public Color getColor(){return brickColor;}
+	}
+*/
 	//INNER CLASS BALL
 	class MGBall extends Rectangle{
 
@@ -143,12 +151,12 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 			if(Math.abs(xVel)<0.05){xVel=0.;}
 
 			if(Math.abs(yVel)<0.05){yVel=0.;}
-			
-/*			// Detect Brick and bounce if necessary.
-			if (this.intersects(wall)) {
+
+/*			// Detect wall and bounce if necessary.
+			if (intersects(wall)) {
 				// Get the intersection rectangle to find out which way to bounce.
 				System.out.println(1);
-				Rectangle iRect = this.intersection(wall);
+				Rectangle iRect = intersection(wall);
 				// If we hit on the left side, go left (negative x velocity).
 				if ((x+(width/2))<(iRect.x+(iRect.width/2))){xVel=(0-Math.abs(xVel));}
 				// If we hit on the right side, go right (positive x velocity).
@@ -176,19 +184,18 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		//draw line helper
 		g.setColor(Color.RED);
 		if (drawHelperLine){g.drawLine((int)(ball.x+ball.size/2), (int)(ball.y+ball.size/2), (int)(mouseX), (int)(mouseY));}
-		
+
 		//crosshair cursor
 		g.setColor(Color.BLACK);
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
+/*		//draw walls
+		g.setColor(wall.getColor());
+		g.fillRect(wall.x, wall.y, wall.width, wall.height);
+*/
 		//draw ball
 		g.setColor(Color.yellow);
 		g.fillOval((int)ball.x, (int)ball.y, ball.size, ball.size);
-		
-/*		//draw walls
-		 g.setColor(Color.LIGHT_GRAY);
-		 g.fillRect(wall.x, wall.y, wall.width, wall.height);
-*/		
 	}
 
 	//MOUSE EVENTS
