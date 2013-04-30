@@ -225,17 +225,16 @@ public class MinigolfGui {
 	}
 
 	//Update Labels
-	private TimerTask tt = new TimerTask() {
+	private TimerTask tt = new TimerTask(){
 
 		@Override
 		public void run() {
-			if(Game.started==true){
-				if(Game.hasBall==false){
+			if(Game.started){
+				if(!Game.hasBall){
 					label4.setText(cl.toStringdsp());
 					label5.setText(" " + Game.clicks);
 				}
-				else
-					cl.stop();
+				else{cl.stop();}
 			}
 		}
 	};
@@ -245,6 +244,7 @@ public class MinigolfGui {
 		cl.vgTimer.cancel();
 		cl.start();
 		Game.started=true;
+		Game.drawHelperLine=true;
 		vgTimer.schedule(Game.mgTask, 0, 10);
 	}
 
@@ -265,7 +265,7 @@ public class MinigolfGui {
 	//Submit Button
 	public void button3ActionPerformed(ActionEvent e){
 		try {
-			if(Game.started==true){
+			if(Game.started){
 				sql.nick= textField1.getText();
 				sql.hits=Game.clicks;
 				sql.time=cl.toStringdsp();
