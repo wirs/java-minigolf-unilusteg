@@ -38,7 +38,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.validate();
-	}//
+	}
 
 
 

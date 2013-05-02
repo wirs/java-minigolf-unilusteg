@@ -257,8 +257,9 @@ public class MinigolfGui {
 				}
 				else{cl.stop();
 				button2.setEnabled(false);
-				//button1.setEnabled(true);
-				//Game.mgTask.cancel();
+				button1.setEnabled(true);
+				mgTask.cancel();
+				BallTimer.cancel();
 				}
 			}
 		}
@@ -266,19 +267,22 @@ public class MinigolfGui {
 
 	//Start Button
 	private void button1ActionPerformed(ActionEvent e) {
-		cl.vgTimer.cancel();
+		//cl.vgTimer.cancel();
+		cl.stop();
 		cl.start();
 		Game.started=true;
 		Game.drawHelperLine=true;
-		BallTimer.schedule(mgTask, 0, 20);
-		//Game.mgTask.run();
 		button2.setEnabled(true);
 		button1.setEnabled(false);
-		/*Game.ball.x=0;
-		Game.ball.y=0;//
+		Game.ball.x=0;
+		Game.ball.y=0;
 		Game.ball.xVel=0;
 		Game.ball.yVel=0;
-		Game.hasBall=false;*/
+		Game.hasBall=false;
+		
+		mgTask = new MGTimerTask();
+		BallTimer = new java.util.Timer();
+		BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
 
 
 	}
