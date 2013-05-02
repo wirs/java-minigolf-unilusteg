@@ -275,7 +275,7 @@ public class MinigolfGui {
 		button2.setEnabled(true);
 		button1.setEnabled(false);
 		/*Game.ball.x=0;
-		Game.ball.y=0;
+		Game.ball.y=0;//
 		Game.ball.xVel=0;
 		Game.ball.yVel=0;
 		Game.hasBall=false;*/
