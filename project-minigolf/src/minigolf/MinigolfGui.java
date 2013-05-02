@@ -10,7 +10,7 @@ import javax.swing.*;
 
 
 public class MinigolfGui {
-	
+
 	public MinigolfGui() {
 		initComponents();
 	}
@@ -229,11 +229,19 @@ public class MinigolfGui {
 		@Override
 		public void run() {
 			if(Game.started){
+				if(Game.hasBall && !textField1.getText().isEmpty()){
+					button3.setEnabled(true);
+				}
+				if (textField1.getText().isEmpty()){
+					button3.setEnabled(false);
+				}
 				if(!Game.hasBall){
 					label4.setText(cl.toStringdsp());
 					label5.setText(" " + Game.clicks);
 				}
-				else{cl.stop();}
+				else{cl.stop();
+				button2.setEnabled(false);
+				}
 			}
 		}
 	};
@@ -245,9 +253,11 @@ public class MinigolfGui {
 		Game.started=true;
 		Game.drawHelperLine=true;
 		vgTimer.schedule(Game.mgTask, 0, 20);
+		button2.setEnabled(true);
+		button1.setEnabled(false);
 	}
 
-	//Reset Button
+	//Pause Button
 	private void button2ActionPerformed(ActionEvent e) {
 
 
@@ -289,7 +299,9 @@ public class MinigolfGui {
 		panel.MGframe.setVisible(true);
 		panel.MGframe.pack();
 		vgTimer.schedule(panel.tt, 0,1);
-/*		panel.Game.wall.x=0;
+		panel.button2.setEnabled(false);
+		panel.button3.setEnabled(false);
+		/*		panel.Game.wall.x=0;
 		panel.Game.wall.y=500;
 		panel.Game.wall.width=800;
 		panel.Game.wall.height=100;*/
