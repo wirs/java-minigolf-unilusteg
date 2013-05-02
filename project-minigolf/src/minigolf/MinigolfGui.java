@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.TimerTask;
 import javax.swing.*;
 
+import minigolf.Clock.ClockTimerTask;
+//import minigolf.MinigolfGame.MGTimerTask;
+
 
 public class MinigolfGui {
 
@@ -31,8 +34,10 @@ public class MinigolfGui {
 	public MinigolfGame Game;
 	public static MGsql sql;
 	static java.util.Timer vgTimer;
+	static java.util.Timer BallTimer;
 	Clock cl;
 	Graphics g;
+	public MGTimerTask mgTask;
 
 	private void initComponents() {
 		//Component initialization
@@ -53,6 +58,8 @@ public class MinigolfGui {
 		cl = new Clock();
 		sql=new MGsql();
 		vgTimer = new java.util.Timer();
+		BallTimer = new java.util.Timer();
+		mgTask = new MGTimerTask();
 
 		// ======== MGframe ========
 		{
@@ -94,7 +101,7 @@ public class MinigolfGui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						button1ActionPerformed(e);
-						//button1ActionPerformed(e);
+
 					}
 				});
 
@@ -106,7 +113,7 @@ public class MinigolfGui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						button2ActionPerformed(e);
-						//button2ActionPerformed(e);
+
 					}
 				});
 
@@ -223,8 +230,17 @@ public class MinigolfGui {
 		}
 	}
 
+	//Makes the ball move
+	class MGTimerTask extends TimerTask{
+
+		public void run() {
+			Game.ball.move();
+			Game.repaint();
+		}
+	}
+
 	//Update Labels
-	private TimerTask tt = new TimerTask(){
+	private TimerTask GuiTask = new TimerTask(){
 
 		@Override
 		public void run() {
@@ -241,6 +257,8 @@ public class MinigolfGui {
 				}
 				else{cl.stop();
 				button2.setEnabled(false);
+				//button1.setEnabled(true);
+				//Game.mgTask.cancel();
 				}
 			}
 		}
@@ -252,22 +270,35 @@ public class MinigolfGui {
 		cl.start();
 		Game.started=true;
 		Game.drawHelperLine=true;
-		vgTimer.schedule(Game.mgTask, 0, 20);
+		BallTimer.schedule(mgTask, 0, 20);
+		//Game.mgTask.run();
 		button2.setEnabled(true);
 		button1.setEnabled(false);
+		/*Game.ball.x=0;
+		Game.ball.y=0;
+		Game.ball.xVel=0;
+		Game.ball.yVel=0;
+		Game.hasBall=false;*/
+
+
 	}
+
 
 	//Pause Button
 	private void button2ActionPerformed(ActionEvent e) {
 
-
 		if (cl.paused==1){
 			cl.resume();
 			System.out.println("Resumed");
+			mgTask = new MGTimerTask();
+			BallTimer = new java.util.Timer();
+			BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
+
 		}
 		else if (cl.paused==0){
 			cl.stop();
 			System.out.println("Paused");
+			mgTask.cancel();
 		}
 	}
 
@@ -298,7 +329,7 @@ public class MinigolfGui {
 		panel.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.MGframe.setVisible(true);
 		panel.MGframe.pack();
-		vgTimer.schedule(panel.tt, 0,1);
+		vgTimer.schedule(panel.GuiTask, 0,1);
 		panel.button2.setEnabled(false);
 		panel.button3.setEnabled(false);
 		/*		panel.Game.wall.x=0;
