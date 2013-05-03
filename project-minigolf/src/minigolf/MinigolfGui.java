@@ -114,6 +114,7 @@ public class MinigolfGui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						button2ActionPerformed(e);
+						button2ActionPerformed(e);
 
 					}
 				});
@@ -237,7 +238,6 @@ public class MinigolfGui {
 		BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
 	}
 	public void BallStop(){
-		mgTask.cancel();
 		BallTimer.cancel();
 	}
 
