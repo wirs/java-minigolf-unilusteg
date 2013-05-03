@@ -4,12 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.TimerTask;
 import javax.swing.*;
-
-import minigolf.Clock.ClockTimerTask;
-//import minigolf.MinigolfGame.MGTimerTask;
 
 
 public class MinigolfGui {
