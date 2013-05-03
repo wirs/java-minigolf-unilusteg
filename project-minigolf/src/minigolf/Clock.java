@@ -6,7 +6,8 @@ public class Clock {
 
 	//Felder
 
-	int minutes, seconds, millis,paused = 0;
+	int minutes, seconds, millis;
+	boolean paused = true;
 	String dspmillis;
 	String dspSeconds;
 	String dspMinutes;
@@ -32,6 +33,7 @@ public class Clock {
 
 	public void start(){
 
+		paused = false;
 		millis = 0;
 		minutes = 0;
 		seconds = 0;
@@ -41,14 +43,14 @@ public class Clock {
 	}
 
 	public void resume(){
-		paused=0;
+		paused=false;
 		clTask = new ClockTimerTask();
 		vgTimer = new java.util.Timer();
 		vgTimer.scheduleAtFixedRate(clTask, 0, 1);
 	}
 
 	public void stop(){	
-		paused=1;
+		paused=true;
 		vgTimer.cancel();
 	}
 

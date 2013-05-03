@@ -1,5 +1,4 @@
 package minigolf;
-import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,6 +34,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		ball = new MGBall();
 		goal = new MGHole(750,550,15,15);
 //		wall = new MGWall(0,500,800,100);
+		
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.validate();
@@ -166,6 +166,27 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	//MAIN CLASS METHODS
+	public void start(){
+		started=true;
+		drawHelperLine=true;
+	}
+	
+	public void halt(){
+		started=false;
+		drawHelperLine=false;
+	}
+	
+	public void reset(){
+		clicks=0;
+		ball.x=0;
+		ball.y=0;
+		ball.xVel=0;
+		ball.yVel=0;
+		hasBall=false;
+		started=false;
+		drawHelperLine=false;
+	}
+	
 	public void paintComponent(Graphics g){
 
 		//anti aliasing

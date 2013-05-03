@@ -93,7 +93,8 @@ public class MinigolfGui {
 
 				pnlCtrl.setLayout(null);
 
-				// ---- button1 ----
+				// ---- button1 ---- (START BUTTON)
+
 				button1.setText("Start");
 				pnlCtrl.add(button1);
 				button1.setBounds(5, 5, 90, 30);
@@ -101,19 +102,19 @@ public class MinigolfGui {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						button1ActionPerformed(e);
-						button1ActionPerformed(e);
 
 					}
 				});
 
-				// ---- button2 ----
+				// ---- button2 ---- (PAUSE BUTTON)
+
 				button2.setText("Pause");
 				pnlCtrl.add(button2);
 				button2.setBounds(105, 5, 90, 30);
+				button2.setEnabled(false);
 				button2.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						button2ActionPerformed(e);
 						button2ActionPerformed(e);
 
 					}
@@ -129,11 +130,13 @@ public class MinigolfGui {
 				pnlCtrl.add(textField1);
 				textField1.setBounds(615, 5, 90, 30);
 
-				// ---- button3 ----
+				// ---- button3 ---- (SUBMIT BUTTON)
+
 				button3.setText("Submit");
 				button3.setPreferredSize(new Dimension(55, 23));
 				pnlCtrl.add(button3);
 				button3.setBounds(715, 5, 80, 30);
+				button3.setEnabled(false);
 				button3.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -271,60 +274,48 @@ public class MinigolfGui {
 					button2.setEnabled(false);
 					button1.setEnabled(true);
 					BallStop();
-					//mgTask.cancel();
-					//BallTimer.cancel();
+					Game.halt();
 				}
 			}
+			if(!Game.started)	{button1.setText("Start");}
+			else				{button1.setText("Reset");}
+			
+			if(cl.paused)		{button2.setText("Resume");}
+			else				{button2.setText("Pause");}
 		}
 	};
 
 	//Start Button
 	private void button1ActionPerformed(ActionEvent e) {
 
-		cl.vgTimer.cancel();
-		cl.stop();
-		cl.start();
-		Game.started=true;
-		Game.drawHelperLine=true;
-		button2.setEnabled(true);
-		button1.setEnabled(false);
-		Game.clicks=0;
-		Game.ball.x=0;
-		Game.ball.y=0;
-		Game.ball.xVel=0;
-		Game.ball.yVel=0;
-		Game.hasBall=false;
-		cl.paused=0;
-		BallStart();
-		//mgTask = new MGTimerTask();
-		//BallTimer = new java.util.Timer();
-		//BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
-
-
-
-
+		if(!Game.started){
+			cl.start();
+			Game.start();
+			BallStart();
+			button2.setEnabled(true);
+		}
+		else{
+			cl.stop();
+			Game.reset();
+			BallStop();
+			button2.setEnabled(false);
+		}
 	}
-
 
 	//Pause Button
 	private void button2ActionPerformed(ActionEvent e) {
 		//JOptionPane.showInputDialog(null, "Enter creditcard number to purchase the exclusive Pause DLC", "XXXX-XXXX-XXXX-XXXX");
-		if (cl.paused==1){
-			button2.setText("Pause");
+		if (cl.paused){
 			cl.resume();
-			System.out.println("Resumed");
+			Game.start();
 			BallStart();
-			//mgTask = new MGTimerTask();
-			//BallTimer = new java.util.Timer();
-			//BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
+			System.out.println("Resumed");
 		}
-		else if (cl.paused==0){
-			button2.setText("Resume");
+		else{
 			cl.stop();
-			System.out.println("Paused");
+			Game.halt();
 			BallStop();
-			//mgTask.cancel();
-			//BallTimer.cancel();
+			System.out.println("Paused");
 		}
 	}
 
@@ -346,7 +337,6 @@ public class MinigolfGui {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 	}
 
 	public static void main(String arg[]) {
@@ -356,9 +346,5 @@ public class MinigolfGui {
 		panel.MGframe.setVisible(true);
 		panel.MGframe.pack();
 		vgTimer.schedule(panel.GuiTask, 0,1);
-		panel.button2.setEnabled(false);
-		panel.button3.setEnabled(false);
-		
-		
 	}
 }
