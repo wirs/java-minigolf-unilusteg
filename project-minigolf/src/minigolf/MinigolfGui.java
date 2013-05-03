@@ -308,7 +308,7 @@ public class MinigolfGui {
 
 	//Pause Button
 	private void button2ActionPerformed(ActionEvent e) {
-
+		//JOptionPane.showInputDialog(null, "Enter creditcard number to purchase the exclusive Pause DLC", "XXXX-XXXX-XXXX-XXXX");
 		if (cl.paused==1){
 			button2.setText("Pause");
 			cl.resume();
