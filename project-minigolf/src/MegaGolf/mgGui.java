@@ -35,8 +35,8 @@ public class mgGui {
     public static mgGame game;
     public static mgClock clk;
     public static mgSQL sql;
-    public static java.util.Timer guiTimer;
-    //public TimerTask guiTask;
+    public java.util.Timer guiTimer;
+    public guiTimerTask guiTask;
     Graphics g;
 
     //CONSTRUCTORS
@@ -64,6 +64,7 @@ public class mgGui {
         clk = new mgClock();
         sql = new mgSQL();
         guiTimer = new java.util.Timer();
+        guiTask = new guiTimerTask();
 
         // ======== MGframe ========
         {
@@ -234,11 +235,13 @@ public class mgGui {
             MGframe.setLocationRelativeTo(MGframe.getOwner());
         }
     }
+    
     //Update Labels
-    private TimerTask guiTask = new TimerTask() {
+    class guiTimerTask extends TimerTask{
         @Override
         public void run() {
             if (game.started) {
+            	button1.setText("Reset");
                 if (game.hasBall && !textField1.getText().isEmpty()) {
                     button3.setEnabled(true);
                 }
@@ -256,19 +259,17 @@ public class mgGui {
                     game.pause();
                 }
             }
-            if (!game.started) {
-                button1.setText("Start");
-            } else {
-                button1.setText("Reset");
+            else{
+            	button1.setText("Start");
             }
-
+            
             if (clk.paused) {
                 button2.setText("Resume");
             } else {
                 button2.setText("Pause");
             }
         }
-    };
+    }
 
     //Start Button
     private void button1ActionPerformed(ActionEvent e) {
@@ -278,7 +279,7 @@ public class mgGui {
             game.start();
             button2.setEnabled(true);
         } else {
-            clk.stop();
+            clk.reset();
             game.reset();
             button2.setEnabled(false);
         }
@@ -322,7 +323,7 @@ public class mgGui {
         //establish connection to mySQL DB
         sql.connect();
         
-        guiTimer.schedule(gui.guiTask, 0, 1);
+        gui.guiTimer.schedule(gui.guiTask, 0, 1);
         gui.MGframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.MGframe.setVisible(true);
         gui.MGframe.pack();

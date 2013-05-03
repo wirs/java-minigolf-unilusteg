@@ -60,6 +60,14 @@ public class mgClock {
         paused = false;
         startTimer();
     }
+    
+    public void reset(){
+    	paused = true;
+    	millis = 0;
+        minutes = 0;
+        seconds = 0;
+        stopTimer();
+    }
 
     public void stop() {
         paused = true;

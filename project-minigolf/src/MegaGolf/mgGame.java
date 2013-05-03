@@ -55,7 +55,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         public void run() {
             ball.move();
             repaint();
-	}
+        }
     }
     
     //INNER CLASS HOLE
@@ -197,7 +197,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         hasBall = false;
         started = false;
         drawHelperLine = false;
-        stopTimer();
+        //stopTimer();
     }
     
     public void pause() {
@@ -314,7 +314,6 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         if (!isMoving && drawHelperLine) {
             repaint();
         }
-
         //debug mouse coordinates
         //System.out.println("x:"+ mouseX + " "+ "y:"+mouseY);
     }
