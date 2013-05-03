@@ -37,7 +37,7 @@ public class MinigolfGui {
 	static java.util.Timer BallTimer;
 	Clock cl;
 	Graphics g;
-	public MGTimerTask mgTask;
+	MGTimerTask mgTask;
 
 	private void initComponents() {
 		//Component initialization
@@ -59,7 +59,7 @@ public class MinigolfGui {
 		sql=new MGsql();
 		vgTimer = new java.util.Timer();
 		BallTimer = new java.util.Timer();
-		//mgTask = new MGTimerTask();
+		mgTask = new MGTimerTask();
 
 		// ======== MGframe ========
 		{
@@ -231,14 +231,6 @@ public class MinigolfGui {
 		}
 	}
 
-	//Makes the ball move
-	class MGTimerTask extends TimerTask{
-
-		public void run() {
-			Game.ball.move();
-			Game.repaint();
-		}
-	}
 	public void BallStart(){
 		mgTask = new MGTimerTask();
 		BallTimer = new java.util.Timer();
@@ -249,7 +241,14 @@ public class MinigolfGui {
 		BallTimer.cancel();
 	}
 
+	//Makes the ball move
+	class MGTimerTask extends TimerTask{
 
+		public void run() {
+			Game.ball.move();
+			Game.repaint();
+		}
+	}
 
 	//Update Labels
 	private TimerTask GuiTask = new TimerTask(){
@@ -272,6 +271,8 @@ public class MinigolfGui {
 					button2.setEnabled(false);
 					button1.setEnabled(true);
 					BallStop();
+					//mgTask.cancel();
+					//BallTimer.cancel();
 				}
 			}
 		}
@@ -295,7 +296,9 @@ public class MinigolfGui {
 		Game.hasBall=false;
 		cl.paused=0;
 		BallStart();
-
+		//mgTask = new MGTimerTask();
+		//BallTimer = new java.util.Timer();
+		//BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
 
 
 
@@ -311,12 +314,17 @@ public class MinigolfGui {
 			cl.resume();
 			System.out.println("Resumed");
 			BallStart();
+			//mgTask = new MGTimerTask();
+			//BallTimer = new java.util.Timer();
+			//BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
 		}
 		else if (cl.paused==0){
 			button2.setText("Resume");
 			cl.stop();
 			System.out.println("Paused");
 			BallStop();
+			//mgTask.cancel();
+			//BallTimer.cancel();
 		}
 	}
 
@@ -350,9 +358,7 @@ public class MinigolfGui {
 		vgTimer.schedule(panel.GuiTask, 0,1);
 		panel.button2.setEnabled(false);
 		panel.button3.setEnabled(false);
-		/*		panel.Game.wall.x=0;
-		panel.Game.wall.y=500;
-		panel.Game.wall.width=800;
-		panel.Game.wall.height=100;*/
+		
+		
 	}
 }

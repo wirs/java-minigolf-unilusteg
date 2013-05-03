@@ -23,18 +23,17 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public JFrame frame;
 	public MGBall ball;
 	public MGHole goal;
-	//	public MGWall wall;
+	public MGWall wall;
 
 
 	//CONSTRUCTORS
 	public MinigolfGame(){ 
-
+		
 		super();
 		screen = new Rectangle(0,0,800,600);
 		bounds = new Rectangle(0,0,800,600);
 		ball = new MGBall();
-		//		wall = new MGWall();
-		//mgTask = new MGTimerTask();	
+		wall = new MGWall(0,500,800,100);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.validate();
@@ -105,8 +104,12 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 			}
 
 			//friction factor
-			xVel*=0.97;
-			yVel*=0.97;
+			//xVel*=0.97;
+			//yVel*=0.97;
+			xVel*=1;
+			yVel*=1;
+			//xVel=width/9;
+			//yVel=height/9;
 
 			//determine new coordinates
 			x+=xVel;
@@ -122,6 +125,22 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 				y = bounds.height-ball.height;
 			}
 
+			
+			// Detect wall and bounce if necessary.
+						if (intersects(wall)) {
+							// Get the intersection rectangle to find out which way to bounce.
+							System.out.println(1);
+							Rectangle iRect = intersection(wall);
+							// If we hit on the left side, go left (negative x velocity).
+							if ((x+(width/2))<(iRect.x+(iRect.width/2))){xVel=(0-Math.abs(xVel));}
+							// If we hit on the right side, go right (positive x velocity).
+							if ((x+(width/2))>(iRect.x+(iRect.width/2))){xVel=Math.abs(xVel);}
+							// If we hit on the top, go up.
+							if ((y+(height/2))<(iRect.y+(iRect.height/2))){yVel=(0-Math.abs(yVel));}
+							// If we hit on the bottom, go down.
+							if ((y+(height/2))>(iRect.y+(iRect.height/2))){yVel=Math.abs(yVel);}
+						}
+						
 			if (x <= 0) { xVel = -xVel; x = 0; }
 
 			if (y <= 0) { yVel = -yVel; y = 0; }
@@ -139,21 +158,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 
 			if(Math.abs(yVel)<0.05){yVel=0.;}
 
-			/*			// Detect wall and bounce if necessary.
-			if (intersects(wall)) {
-				// Get the intersection rectangle to find out which way to bounce.
-				System.out.println(1);
-				Rectangle iRect = intersection(wall);
-				// If we hit on the left side, go left (negative x velocity).
-				if ((x+(width/2))<(iRect.x+(iRect.width/2))){xVel=(0-Math.abs(xVel));}
-				// If we hit on the right side, go right (positive x velocity).
-				if ((x+(width/2))>(iRect.x+(iRect.width/2))){xVel=Math.abs(xVel);}
-				// If we hit on the top, go up.
-				if ((y+(height/2))<(iRect.y+(iRect.height/2))){yVel=(0-Math.abs(yVel));}
-				// If we hit on the bottom, go down.
-				if ((y+(height/2))>(iRect.y+(iRect.height/2))){yVel=Math.abs(yVel);}
-			}
-			 */					
+			 					
 		}
 
 		public void draw(Graphics g){
@@ -182,9 +187,9 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		g.setColor(Color.BLACK);
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
-		/*		//draw walls
+		//draw walls
 		g.setColor(wall.getColor());
-		g.fillRect(wall.x, wall.y, wall.width, wall.height);*/
+		g.fillRect(wall.x, wall.y, wall.width, wall.height);
 
 		//draw ball
 		ball.draw(g);
