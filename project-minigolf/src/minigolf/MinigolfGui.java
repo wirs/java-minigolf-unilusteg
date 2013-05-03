@@ -59,7 +59,7 @@ public class MinigolfGui {
 		sql=new MGsql();
 		vgTimer = new java.util.Timer();
 		BallTimer = new java.util.Timer();
-		mgTask = new MGTimerTask();
+		//mgTask = new MGTimerTask();
 
 		// ======== MGframe ========
 		{
@@ -239,6 +239,17 @@ public class MinigolfGui {
 			Game.repaint();
 		}
 	}
+	public void BallStart(){
+		mgTask = new MGTimerTask();
+		BallTimer = new java.util.Timer();
+		BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
+	}
+	public void BallStop(){
+		mgTask.cancel();
+		BallTimer.cancel();
+	}
+
+
 
 	//Update Labels
 	private TimerTask GuiTask = new TimerTask(){
@@ -256,10 +267,11 @@ public class MinigolfGui {
 					label4.setText(cl.toStringdsp());
 					label5.setText(" " + Game.clicks);
 				}
-				else{cl.stop();
-				button2.setEnabled(false);
-				button1.setEnabled(true);
-				BallTimer.cancel();
+				if(Game.hasBall){
+					cl.stop();
+					button2.setEnabled(false);
+					button1.setEnabled(true);
+					BallStop();
 				}
 			}
 		}
@@ -267,7 +279,8 @@ public class MinigolfGui {
 
 	//Start Button
 	private void button1ActionPerformed(ActionEvent e) {
-		//cl.vgTimer.cancel();
+
+		cl.vgTimer.cancel();
 		cl.stop();
 		cl.start();
 		Game.started=true;
@@ -280,13 +293,11 @@ public class MinigolfGui {
 		Game.ball.xVel=0;
 		Game.ball.yVel=0;
 		Game.hasBall=false;
-		//Game.started=true;
-		//Game.isMoving=false;
 		cl.paused=0;
-		
-		mgTask = new MGTimerTask();
-		BallTimer = new java.util.Timer();
-		BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
+		BallStart();
+
+
+
 
 
 	}
@@ -299,16 +310,13 @@ public class MinigolfGui {
 			button2.setText("Pause");
 			cl.resume();
 			System.out.println("Resumed");
-			mgTask = new MGTimerTask();
-			BallTimer = new java.util.Timer();
-			BallTimer.scheduleAtFixedRate(mgTask, 0, 20);
-
+			BallStart();
 		}
 		else if (cl.paused==0){
 			button2.setText("Resume");
 			cl.stop();
 			System.out.println("Paused");
-			BallTimer.cancel();
+			BallStop();
 		}
 	}
 

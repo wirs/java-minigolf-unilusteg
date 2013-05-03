@@ -40,8 +40,6 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 		this.validate();
 	}
 
-
-
 	//INNER CLASS HOLE
 	class MGHole extends Rectangle {
 
