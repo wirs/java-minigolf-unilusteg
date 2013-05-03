@@ -96,10 +96,11 @@ public class MinigolfGui {
 				// ---- button1 ----
 				button1.setText("Start");
 				pnlCtrl.add(button1);
-				button1.setBounds(5, 5, 80, 30);
+				button1.setBounds(5, 5, 90, 30);
 				button1.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						button1ActionPerformed(e);
 						button1ActionPerformed(e);
 
 					}
@@ -108,7 +109,7 @@ public class MinigolfGui {
 				// ---- button2 ----
 				button2.setText("Pause");
 				pnlCtrl.add(button2);
-				button2.setBounds(95, 5, 80, 30);
+				button2.setBounds(105, 5, 90, 30);
 				button2.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -258,7 +259,6 @@ public class MinigolfGui {
 				else{cl.stop();
 				button2.setEnabled(false);
 				button1.setEnabled(true);
-				mgTask.cancel();
 				BallTimer.cancel();
 				}
 			}
@@ -274,11 +274,15 @@ public class MinigolfGui {
 		Game.drawHelperLine=true;
 		button2.setEnabled(true);
 		button1.setEnabled(false);
+		Game.clicks=0;
 		Game.ball.x=0;
 		Game.ball.y=0;
 		Game.ball.xVel=0;
 		Game.ball.yVel=0;
 		Game.hasBall=false;
+		//Game.started=true;
+		//Game.isMoving=false;
+		cl.paused=0;
 		
 		mgTask = new MGTimerTask();
 		BallTimer = new java.util.Timer();
@@ -292,6 +296,7 @@ public class MinigolfGui {
 	private void button2ActionPerformed(ActionEvent e) {
 
 		if (cl.paused==1){
+			button2.setText("Pause");
 			cl.resume();
 			System.out.println("Resumed");
 			mgTask = new MGTimerTask();
@@ -300,9 +305,10 @@ public class MinigolfGui {
 
 		}
 		else if (cl.paused==0){
+			button2.setText("Resume");
 			cl.stop();
 			System.out.println("Paused");
-			mgTask.cancel();
+			BallTimer.cancel();
 		}
 	}
 
