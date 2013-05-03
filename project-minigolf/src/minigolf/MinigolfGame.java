@@ -125,7 +125,7 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 				y = bounds.height-ball.height;
 			}
 
-/*
+			/*
 			// Detect wall and bounce if necessary.
 			if (intersects(wall)) {
 				// Get the intersection rectangle to find out which way to bounce.
@@ -199,25 +199,19 @@ public class MinigolfGame extends JPanel implements MouseListener, MouseMotionLi
 	public void mouseClicked(MouseEvent e) {
 
 		if(!started){e.consume();}
-		else{
-			if(hasBall){e.consume();}
-			else{
-				if(isMoving){e.consume();}
+		
+		else if(hasBall){e.consume();}
+		
+		else if(isMoving){e.consume();}
+		
+		else
+		{
+			int xclick = e.getX();
+			int yclick = e.getY();
 
-				else
-				{
-					int xclick = e.getX();
-					int yclick = e.getY();
-
-					ball.xVel=((xclick-(ball.x+ball.width/2))/10);
-					ball.yVel=((yclick-(ball.y+ball.height/2))/10);
-					clicks+=1;
-
-					//debug mouse click coords
-					//			System.out.println(xVel+" "+yVel);
-					//			System.out.println(clicks);
-				}
-			}
+			ball.xVel=((xclick-(ball.x+ball.width/2))/10);
+			ball.yVel=((yclick-(ball.y+ball.height/2))/10);
+			clicks+=1;
 		}
 	}
 
