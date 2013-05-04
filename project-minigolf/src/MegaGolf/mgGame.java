@@ -17,15 +17,13 @@ import javax.swing.*;
  *
  * @author Daniel Warnimont, Claude Ernzer, Luc Welter
  */
+@SuppressWarnings("serial")
 public class mgGame extends JPanel implements MouseListener, MouseMotionListener {
     
     //FIELDS
     int clicks = 0;
     double mouseX, mouseY;
-    boolean isMoving = false;
-    boolean hasBall = false;
     boolean started = false;
-    boolean drawHelperLine = false;
     public Rectangle screen, bounds;
     public JFrame frame;
     public MGBall ball;
@@ -59,7 +57,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
     }
     
     //INNER CLASS HOLE
-    class MGHole extends Rectangle {
+	class MGHole extends Rectangle {
 
         //FIELDS
         int x, y, width, height;
@@ -71,6 +69,16 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
             this.width = width;
             this.height = height;
         }
+        
+        //determine if ball is in the hole
+        public boolean hasBall(){
+        	if (ball.x > x && ball.x < x + 5 && ball.y > y && ball.y < y + 5) {
+        		ball.xVel = 0;
+        		ball.yVel = 0;
+        		return true;
+            }
+        	else {return false;}
+        }
 
         public void draw(Graphics g) {
             g.setColor(Color.BLACK);
@@ -78,7 +86,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         }
     }
 
-    //INNER CLASS BALL
+	//INNER CLASS BALL
     class MGBall extends Rectangle {
 
         //FIELDS
@@ -94,14 +102,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         public void move() {
 
             //tests if the ball is moving
-            if (xVel != 0. || yVel != 0.) {
-                isMoving = true;
-                drawHelperLine = false;
-            } 
-            else {
-                isMoving = false;
-                drawHelperLine = true;
-            }
+        	isMoving();
 
             //friction factor
             xVel *= 0.97;
@@ -131,21 +132,20 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
                 yVel = -yVel;
                 y = 0;
             }
-            
-            //determine if ball is in the hole
-            if (x > 750 && x < 750 + 5 && y > 550 && y < 550 + 5) {
-                xVel = 0;
-                yVel = 0;
-                hasBall = true;
-                drawHelperLine = false;
-            }
-            
+                 
             //make the ball stop earlier
             if (Math.abs(xVel) < 0.05) {xVel = 0;}
             
             if (Math.abs(yVel) < 0.05) {yVel = 0;}
         }
         
+        //determine if the ball is moving
+        public boolean isMoving(){
+        	if (xVel != 0. || yVel != 0.) {return true;}
+        	
+            else {return false;}
+        }
+      
         //draw the ball
         public void draw(Graphics g) {
             g.setColor(Color.yellow);
@@ -175,50 +175,48 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         ballTimer = new java.util.Timer();
         ballTask = new MGTimerTask();
         ballTimer.scheduleAtFixedRate(ballTask, 0, 20);
+        started = true;
     }
     
     private void stopTimer(){
         ballTask.cancel();
         ballTimer.cancel();
+        started = false;
     }
     
     public void start() {
-        startTimer();
-        started = true;
-        drawHelperLine = true;
-    }
-    
-    public void reset() {
-        clicks = 0;
+    	clicks = 0;
         ball.setX(0);
         ball.setY(0);
         ball.setXVel(0);
         ball.setYVel(0);
-        hasBall = false;
-        started = false;
-        drawHelperLine = false;
-        //stopTimer();
+        startTimer();
+    }
+    
+    public void stop() {
+        stopTimer();
     }
     
     public void pause() {
-        started = false;
-        drawHelperLine = false;
         ball.oldX=ball.getX();
         ball.oldY=ball.getY();
         ball.oldXVel=ball.getXVel();
         ball.oldYVel=ball.getYVel();
         stopTimer();
+        repaint();
     }
     
     public void resume(){
-        started=true;
-        if(isMoving){drawHelperLine = false;}
-        else{drawHelperLine = true;}
         ball.x=ball.oldX;
         ball.y=ball.oldY;
         ball.xVel=ball.oldXVel;
         ball.yVel=ball.oldYVel;
         startTimer();
+    }
+    
+    public boolean drawHelperLine(){
+    	if (!ball.isMoving() && !goal.hasBall() && started) {return true;}
+    	else {return false;}
     }
     
     @Override
@@ -237,7 +235,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         
         //draw helper line
         g.setColor(Color.RED);
-        if (drawHelperLine) {
+        if (drawHelperLine()) {
             g.drawLine((int) (ball.x + ball.width / 2), (int) (ball.y + ball.width / 2), (int) (mouseX), (int) (mouseY));
         }
 
@@ -260,11 +258,11 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
             e.consume();
         } 
         //ignore mouse clicks if the ball is in the hole
-        else if (hasBall) {
+        else if (goal.hasBall()) {
             e.consume();
         } 
         //ignore mouse clicks if the ball is moving
-        else if (isMoving) {
+        else if (ball.isMoving()) {
             e.consume();
         } 
         else {
@@ -311,7 +309,7 @@ public class mgGame extends JPanel implements MouseListener, MouseMotionListener
         mouseX = e.getX();
         mouseY = e.getY();
 
-        if (!isMoving && drawHelperLine) {
+        if (!ball.isMoving() && drawHelperLine()) {
             repaint();
         }
         //debug mouse coordinates

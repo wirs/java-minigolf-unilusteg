@@ -8,9 +8,6 @@ package MegaGolf;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -54,7 +51,8 @@ public class mgSQL {
         try {
             score = 101 - (hits * 5);
             stmt.addBatch("insert into tblMG " + "values('" + nick + "'," + hits + ", '" + time + "', " + score + ")");
-            int[] updateCounts = stmt.executeBatch();
+            @SuppressWarnings("unused")
+			int[] updateCounts = stmt.executeBatch();
         } catch (SQLException e1) {}
     }
 }

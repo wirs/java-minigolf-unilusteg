@@ -14,11 +14,11 @@ import java.util.TimerTask;
 public class mgClock {
     
     //FIELDS
-    int minutes, seconds, millis;
+    int minutes, seconds, millis=0;
     boolean paused = true;
-    String dspmillis;
-    String dspSeconds;
-    String dspMinutes;
+    String dspmillis="000";
+    String dspSeconds="00";
+    String dspMinutes="00";
     String Time2 = "";
     java.util.Timer clkTimer;
     public ClockTimerTask clkTask;
